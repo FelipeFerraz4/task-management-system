@@ -4,6 +4,8 @@ import dotenv from 'dotenv';
 import taskRoutes from './routes/tasksRouter.js';
 import userRoutes from './routes/usersRouter.js';
 import sequelize from './config/database.js';
+import './models/User.js';
+import './models/Task.js';
 
 dotenv.config({
     path: process.env.NODE_ENV === 'production' ? '.env.production' : '.env',
