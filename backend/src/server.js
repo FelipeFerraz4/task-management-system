@@ -30,8 +30,6 @@ app.get('/api/config', (req, res) => {
       dbHost: process.env.DB_HOST,
     });
   });
-  
-
 
   (async () => {
     try {
