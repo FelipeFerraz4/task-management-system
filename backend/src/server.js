@@ -3,10 +3,11 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import taskRoutes from './routes/tasksRouter.js';
 import userRoutes from './routes/usersRouter.js';
+import sequelize from './config/database.js';
 
 dotenv.config({
     path: process.env.NODE_ENV === 'production' ? '.env.production' : '.env',
-  });
+});
 
 const app = express();
 
@@ -30,6 +31,16 @@ app.get('/api/config', (req, res) => {
     });
   });
   
+
+
+  (async () => {
+    try {
+      await sequelize.sync({ force: false }); // Altere para 'true' para recriar tabelas
+      console.log('Modelos sincronizados com o banco de dados!');
+    } catch (error) {
+      console.error('Erro ao sincronizar modelos:', error);
+    }
+  })();
 
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);
