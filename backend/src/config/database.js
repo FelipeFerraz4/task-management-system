@@ -1,4 +1,4 @@
-import { Sequelize } from "sequelize";
+import { Sequelize } from 'sequelize';
 import dotenv from 'dotenv';
 
 dotenv.config({
@@ -13,7 +13,6 @@ const dbConfig = {
     dialect: 'postgres',
 };
 
-
 const sequelize = new Sequelize(
     dbConfig.database,
     dbConfig.username,
@@ -25,13 +24,18 @@ const sequelize = new Sequelize(
     }
 );
 
-(async () => {
+const initializeDatabase = async () => {
     try {
         await sequelize.authenticate();
-        console.log('Conexão com o banco de dados bem-sucedida!');
+        console.log(`Conexão com o banco de dados "${dbConfig.database}" bem-sucedida!`);
+        await sequelize.sync({ alter: true }); // Sincroniza os modelos
+        console.log('Modelos sincronizados com o banco de dados!');
     } catch (error) {
-        console.error('Erro ao conectar-se ao banco de dados:', error);
+        console.error(`Erro ao conectar-se ao banco de dados "${dbConfig.database}":`, error);
+        process.exit(1); // Encerra o processo se não for possível conectar
     }
-})();
+};
+
+initializeDatabase();
 
 export default sequelize;
