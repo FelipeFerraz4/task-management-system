@@ -1,13 +1,17 @@
 {
   "name": "backend",
   "version": "1.0.0",
+  "type": "module",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "start": "node ./src/server.js",
+    "start:dev": "NODE_ENV=development node ./src/server.js",
+    "start:prod": "NODE_ENV=production node ./src/server.js"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +20,7 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.3",
     "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
     "pg": "^8.13.1",
