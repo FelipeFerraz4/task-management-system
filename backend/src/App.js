@@ -3,7 +3,6 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import taskRoutes from './routes/tasksRouter.js';
 import userRoutes from './routes/usersRouter.js';
-import sequelize from './config/database.js';
 
 class App {
     constructor() {

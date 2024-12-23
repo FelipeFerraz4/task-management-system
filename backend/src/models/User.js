@@ -39,9 +39,13 @@ const User = sequelize.define('User', {
 User.beforeCreate(async (user) => {
     if (user.password) {
         const salt = await bcrypt.genSalt(10);
-        user.password = await bcrypt.hash(user.password, salt);
+        const hashedPassword = await bcrypt.hash(user.password, salt);
+        // console.log('Password to be hashed:', user.password);  // Senha original
+        // console.log('Hashed password:', hashedPassword); // Senha após hash
+        user.password = hashedPassword;
     }
 });
+
 
 User.prototype.validatePassword = async function (password) {
     return bcrypt.compare(password, this.password);
