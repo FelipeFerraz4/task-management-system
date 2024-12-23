@@ -28,11 +28,11 @@ const initializeDatabase = async () => {
     try {
         await sequelize.authenticate();
         console.log(`Conexão com o banco de dados "${dbConfig.database}" bem-sucedida!`);
-        await sequelize.sync({ alter: true }); // Sincroniza os modelos
+        await sequelize.sync({ force: true });
         console.log('Modelos sincronizados com o banco de dados!');
     } catch (error) {
         console.error(`Erro ao conectar-se ao banco de dados "${dbConfig.database}":`, error);
-        process.exit(1); // Encerra o processo se não for possível conectar
+        process.exit(1);
     }
 };
 
