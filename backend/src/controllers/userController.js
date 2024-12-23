@@ -8,7 +8,14 @@ export const getUserProfile = async (req, res) => {
         if (!user) {
             return res.status(404).json({ message: 'Usuário não encontrado' });
         }
-        res.status(200).json(user);
+        res.status(200).json({
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            role: user.role,
+            createdAt: user.createdAt,
+            updatedAt: user.updatedAt
+        });
     } catch (error) {
         res.status(500).json({ message: 'Erro ao buscar perfil', error: error.message });
     }
