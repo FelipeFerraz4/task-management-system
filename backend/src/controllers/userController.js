@@ -1,7 +1,10 @@
+
+// Handles operations related to user management, such as registration, authentication, and profile management.
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
 
+// Retrieves the profile of the currently authenticated user.
 export const getUserProfile = async (req, res) => {
     try {
         const user = await User.findByPk(req.user.id);
@@ -21,6 +24,7 @@ export const getUserProfile = async (req, res) => {
     }
 };
 
+// Registers a new user in the system.
 export const registerUser = async (req, res) => {
     const { name, email, password, role } = req.body;
     try {
@@ -31,6 +35,7 @@ export const registerUser = async (req, res) => {
     }
 };
 
+// Authenticates a user and provides a JWT for subsequent requests.
 export const loginUser = async (req, res) => {
     const { email, password } = req.body;
 
@@ -41,9 +46,7 @@ export const loginUser = async (req, res) => {
             return res.status(401).json({ message: 'Credenciais inválidas' });
         }
 
-        const isPasswordValid = await user.validatePassword(password); // Comparação da senha
-        // console.log('Password comparison:', { password, isPasswordValid }); // Verifique se está retornando true
-
+        const isPasswordValid = await user.validatePassword(password); // Compares the provided password with the stored hash.
         if (!isPasswordValid) {
             return res.status(401).json({ message: 'Credenciais inválidas' });
         }
@@ -56,11 +59,11 @@ export const loginUser = async (req, res) => {
 
         res.status(200).json({ token });
     } catch (error) {
-        console.error('Login error:', error);
-        res.status(500).json({ message: 'Erro interno do servidor' });
+        res.status(500).json({ message: 'Erro interno do servidor', error: error.message });
     }
 };
 
+// Updates the profile information of the currently authenticated user.
 export const updateUserProfile = async (req, res) => {
     const { name, email, password } = req.body;
     try {

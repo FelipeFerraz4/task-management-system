@@ -1,5 +1,7 @@
+// Handles operations related to task management, such as retrieving, creating, updating, and deleting tasks.
 import Task from '../models/Task.js';
 
+// Retrieves all tasks associated with the currently authenticated user.
 export const getAllTasks = async (req, res) => {
     try {
         const tasks = await Task.findAll({ where: { userId: req.user.id } });
@@ -9,6 +11,7 @@ export const getAllTasks = async (req, res) => {
     }
 };
 
+// Retrieves a specific task by its ID, ensuring it belongs to the currently authenticated user.
 export const getTaskById = async (req, res) => {
     const { id } = req.params;
     try {
@@ -22,6 +25,7 @@ export const getTaskById = async (req, res) => {
     }
 };
 
+// Creates a new task associated with the currently authenticated user.
 export const createTask = async (req, res) => {
     const { title, description, dueDate } = req.body;
     try {
@@ -32,6 +36,7 @@ export const createTask = async (req, res) => {
     }
 };
 
+// Updates an existing task by its ID, ensuring it belongs to the currently authenticated user.
 export const updateTask = async (req, res) => {
     const { id } = req.params;
     const { title, description, status, dueDate } = req.body;
@@ -47,6 +52,7 @@ export const updateTask = async (req, res) => {
     }
 };
 
+// Deletes a specific task by its ID, ensuring it belongs to the currently authenticated user.
 export const deleteTask = async (req, res) => {
     const { id } = req.params;
     try {
