@@ -3,6 +3,7 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
+import { addToBlockList } from '../services/tokenService.js';
 
 // Retrieves the profile of the currently authenticated user.
 export const getUserProfile = async (req, res) => {
@@ -60,6 +61,27 @@ export const loginUser = async (req, res) => {
         res.status(200).json({ token });
     } catch (error) {
         res.status(500).json({ message: 'Erro interno do servidor', error: error.message });
+    }
+};
+
+export const logoutUser = async (req, res) => {
+    const authHeader = req.headers['authorization'];
+    if (!authHeader) {
+        return res.status(401).json({message: 'Token não fornecido'});
+    }
+
+    const token = authHeader.split(' ')[1];
+    if (!token) {
+      return res.status(401).json({ message: 'Token malformado' });
+    }
+
+    try {
+        await addToBlockList(token);
+        res.status(200).json({ message: 'Logout realizado com sucesso' });
+    } catch (error) {
+        res
+          .status(500)
+          .json({ message: 'Erro ao fazer logout', error: error.message });        
     }
 };
 
