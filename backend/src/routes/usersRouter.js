@@ -4,6 +4,7 @@ import {
   registerUser,
   loginUser,
   updateUserProfile,
+  logoutUser,
 } from '../controllers/userController.js'; // Import user-related controllers
 import authMiddleware from '../middlewares/authMiddleware.js'; // Import authentication middleware
 
@@ -23,5 +24,7 @@ router.get('/profile', getUserProfile);
 
 // Route to update the authenticated user's profile
 router.put('/profile', updateUserProfile);
+
+router.post('/logout', logoutUser);
 
 export default router; // Export the router for use in other parts of the application
