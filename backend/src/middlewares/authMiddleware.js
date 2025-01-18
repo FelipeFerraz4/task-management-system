@@ -1,7 +1,8 @@
+import redisClient from '../config/redis.js';
 import jwt from 'jsonwebtoken';
 
 // Middleware to authenticate requests using JWT (JSON Web Token)
-const authMiddleware = (req, res, next) => {
+const authMiddleware = async (req, res, next) => {
   // Retrieve the 'Authorization' header from the request
   const authHeader = req.headers['authorization'];
 
@@ -19,6 +20,12 @@ const authMiddleware = (req, res, next) => {
   }
 
   try {
+    const isBlacklisted = await redisClient.get(`blacklist:${token}`);
+    if (isBlacklisted) {
+      return res
+        .status(401)
+        .json({ message: 'Expired Token'});
+    }
     // Verify the token using the secret key from the environment variables
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
