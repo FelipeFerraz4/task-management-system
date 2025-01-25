@@ -1,4 +1,4 @@
-import redisClient from '../config/redis.js';
+import { connectRedis } from '../config/redis.js';
 import jwt from 'jsonwebtoken';
 
 // Middleware to authenticate requests using JWT (JSON Web Token)
@@ -20,7 +20,7 @@ const authMiddleware = async (req, res, next) => {
   }
 
   try {
-    const isBlacklisted = await redisClient.get(`blacklist:${token}`);
+    const isBlacklisted = await connectRedis.get(`blacklist:${token}`);
     if (isBlacklisted) {
       return res
         .status(401)

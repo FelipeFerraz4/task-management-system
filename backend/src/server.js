@@ -1,13 +1,21 @@
+import { initializeDatabase } from './config/database'; // Função para inicializar o banco
 import App from './App.js'; // Import the App class
 
-// Create a new instance of the App class
-const app = new App();
+const app = new App().app;
 
-// Define the port for the server to listen on, using the environment variable or a default value
-const PORT = process.env.PORT || 2000;
+const startServer = async () => {
+  try {
+    // Inicializa o banco de dados antes de iniciar o servidor
+    await initializeDatabase();
 
-// Start the server and listen on the specified port
-app.app.listen(PORT, () => {
-    // Log a message to the console indicating the server is running
-    console.log(`Server is running on port ${PORT}`);
-});
+    const PORT = process.env.PORT || 2000;
+    app.listen(PORT, () => {
+      console.log(`Server is running on http://localhost:${PORT}`);
+    });
+  } catch (error) {
+    console.error('Failed to start the server:', error);
+    process.exit(1);
+  }
+};
+
+startServer();
