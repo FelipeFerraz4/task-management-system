@@ -9,11 +9,18 @@ const redisClient = createClient({
   url: `redis://${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`,
 });
 
+let isRedisConnected = false;
+
 // Conecte ao Redis
 const connectRedis = async () => {
   try {
-    await redisClient.connect();
-    console.log('Conectado ao Redis!');
+    if (!isRedisConnected) {
+      await redisClient.connect();
+      console.log('Connected Redis!');
+      isRedisConnected = true;
+    } else {
+      console.log('Redis connection already established.');
+    }
   } catch (err) {
     console.error('Erro ao conectar ao Redis:', err);
   }
@@ -34,5 +41,5 @@ const closeRedis = async () => {
 };
 
 // Exportando a função de conexão e o cliente Redis
-export { connectRedis, closeRedis };
+export { connectRedis, redisClient, closeRedis };
 export default redisClient;

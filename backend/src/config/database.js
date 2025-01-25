@@ -34,21 +34,28 @@ const sequelize = new Sequelize(
   }
 );
 
+let isDatabaseConnected = false;
+
 // Function to initialize the database connection and synchronize models.
 export const initializeDatabase = async () => {
   try {
-    // Attempting to authenticate with the database using Sequelize.
-    await sequelize.authenticate();
-    console.log(
-      `Successfully connected to the database "${dbConfig.database}"!`
-    );
+    if(!isDatabaseConnected) {
+      // Attempting to authenticate with the database using Sequelize.
+      await sequelize.authenticate();
+      console.log(
+        `Successfully connected to the database "${dbConfig.database}"!`
+      );
 
-    // Synchronizing all models with the database
-    // Using force: true to recreate tables (use cautiously in production)
-    // await sequelize.sync({ force: true });
-    // Using alter: true to update tables without data loss
-    await sequelize.sync({ alter: true });
-    console.log('Models synchronized with the database!');
+      // Synchronizing all models with the database
+      // Using force: true to recreate tables (use cautiously in production)
+      await sequelize.sync({ force: true });
+      // Using alter: true to update tables without data loss
+      // await sequelize.sync({ alter: true });
+      console.log('Models synchronized with the database!');
+      isDatabaseConnected = true;
+    } else {
+      console.log('Database connection already established.');
+    }
   } catch (error) {
     // Logging and exiting the application if an error occurs during connection or synchronization.
     console.error(

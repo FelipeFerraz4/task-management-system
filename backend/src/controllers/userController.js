@@ -8,6 +8,7 @@ import { addToBlockList } from '../services/tokenService.js';
 // Retrieves the profile of the currently authenticated user.
 export const getUserProfile = async (req, res) => {
     try {
+        console.log(req.user.id);
         const user = await User.findByPk(req.user.id);
         if (!user) {
             return res.status(404).json({ message: 'Usuário não encontrado' });
@@ -30,7 +31,8 @@ export const registerUser = async (req, res) => {
     const { name, email, password, role } = req.body;
     try {
         const user = await User.create({ name, email, password, role });
-        res.status(201).json({ message: 'Usuário registrado', user: { name, email, role } });
+
+        res.status(201).json({status: 'success', message: 'registed user', user: { name, email, role } });
     } catch (error) {
         res.status(400).json({ message: 'Erro ao registrar usuário', error: error.message });
     }
@@ -42,7 +44,6 @@ export const loginUser = async (req, res) => {
 
     try {
         const user = await User.findOne({ where: { email } });
-
         if (!user) {
             return res.status(401).json({ message: 'Credenciais inválidas' });
         }
@@ -58,7 +59,7 @@ export const loginUser = async (req, res) => {
             { expiresIn: '1d' }
         );
 
-        res.status(200).json({ token });
+        res.status(200).json({status: 'success', message: 'registed user', token });
     } catch (error) {
         res.status(500).json({ message: 'Erro interno do servidor', error: error.message });
     }
