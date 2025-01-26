@@ -8,7 +8,6 @@ import { addToBlockList } from '../services/tokenService.js';
 // Retrieves the profile of the currently authenticated user.
 export const getUserProfile = async (req, res) => {
     try {
-        console.log(req.user.id);
         const user = await User.findByPk(req.user.id);
         if (!user) {
             return res.status(404).json({ message: 'Usuário não encontrado' });

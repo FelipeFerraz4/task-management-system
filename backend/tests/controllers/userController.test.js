@@ -76,5 +76,28 @@ describe('User Routes', () => {
     expect(response.body.name).toBe('John Doe');
     expect(response.body.email).toBe('johndoe@gmail.com');
   });
+
+  it('should update user profile', async () => {
+    const response = await request(app)
+      .put('/api/users/profile')
+      .set('Authorization', `Bearer ${authToken}`)
+      .set('Content-Type', 'application/json')
+      .send({
+        name: 'Updated User',
+      });
+
+    expect(response.status).toBe(200);
+    expect(response.body.message).toBe('Perfil atualizado com sucesso');
+    expect(response.body.user.name).toBe('Updated User');
+  });
+
+  it('should log out the user', async () => {
+    const response = await request(app)
+      .post('/api/users/logout')
+      .set('Authorization', `Bearer ${authToken}`);
+
+    expect(response.status).toBe(200);
+    expect(response.body.message).toBe('Logout realizado com sucesso');
+  });
 });
 

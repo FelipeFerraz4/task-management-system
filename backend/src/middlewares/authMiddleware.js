@@ -21,7 +21,6 @@ const authMiddleware = async (req, res, next) => {
   try {
     connectRedis();
     const isBlacklisted = await redisClient.get(`blacklist:${token}`);
-    console.log(authHeader);
     if (isBlacklisted) {
       return res
       .status(401)
