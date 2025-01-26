@@ -1,4 +1,4 @@
-import { initializeDatabase } from './config/database'; // Função para inicializar o banco
+import { initializeDatabase } from './config/database.js'; // Função para inicializar o banco
 import App from './App.js'; // Import the App class
 
 const app = new App().app;
