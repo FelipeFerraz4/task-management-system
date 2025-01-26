@@ -1,10 +1,12 @@
-import Header from "../../componentes/Header";
+import CarouselSection from "../../components/CarouselSection";
+import Header from "../../components/Header";
 
 function Home() {
   return (
     <>
         <Header />
-        <h2>🏠 Bem-vindo à página inicial!</h2>
+        <CarouselSection />
+        {/* <h2>🏠 Bem-vindo à página inicial!</h2> */}
     </>
   );
 }

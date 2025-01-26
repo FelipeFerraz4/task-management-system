@@ -1,0 +1,18 @@
+/* src/styles.css */
+.carousel-item img {
+  object-fit: cover; /* Faz as imagens cobrir o espaço sem distorcer */
+}
+
+.carousel-caption {
+  background-color: rgba(0, 0, 0, 0.5); /* Coloca um fundo translúcido para as legendas */
+  padding: 20px;
+}
+
+.carousel-caption h3 {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.carousel-caption p {
+  font-size: 1.25rem;
+}
