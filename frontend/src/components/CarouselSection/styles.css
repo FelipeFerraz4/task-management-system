@@ -9,10 +9,21 @@
 }
 
 .carousel-caption h3 {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.carousel-caption p {
+  font-size: 1rem;
+}
+
+@media (min-width: 425px) {
+  .carousel-caption h3 {
   font-size: 3rem;
   font-weight: bold;
 }
 
 .carousel-caption p {
   font-size: 1.25rem;
+}
 }
