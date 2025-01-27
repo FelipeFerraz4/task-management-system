@@ -1,12 +1,44 @@
-/* Estilização da logo */
+/* Estilos Gerais */
+.navbar {
+  position: relative;
+  z-index: 10; /* Garante que o cabeçalho esteja acima de outros elementos */
+}
+
 .header-logo {
   width: 40px;
   margin-right: 10px;
 }
 
-/* Botão de login */
+.custom-menu-icon {
+  width: 24px;
+  height: 24px;
+}
+.close-menu-btn {
+  background: none;
+  border: none;
+  position: absolute;
+  /* top: 10px; */
+  right: 10px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.close-menu-btn img {
+  width: 24px;
+  height: 24px;
+}
+
+.offcanvas_header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Estilos do botão de login */
 .header-login-btn {
-  margin-left: 1%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: #0d6efd;
   border: 1px solid #0d6efd;
   padding: 8px 16px;
@@ -18,4 +50,75 @@
 .header-login-btn:hover {
   background-color: #0d6efd;
   color: white;
+}
+
+/* Menu principal */
+.navbar-collapse {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.navbar-collapse .nav-link {
+  font-size: 16px;
+  color: #333;
+  margin-right: 20px;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.navbar-collapse .nav-link:hover {
+  color: #0d6efd;
+}
+
+/* Estilos do Offcanvas */
+.offcanvas {
+  /* width: 220px; Largura do menu lateral */
+  max-width: 220px;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Ajuste para mobile */
+@media (max-width: 768px) {
+  .navbar-collapse {
+    display: none; /* Oculta a navbar para dispositivos menores, já que o menu está no offcanvas */
+  }
+
+  .navbar-toggle {
+    display: block; /* Exibe o botão de menu no mobile */
+  }
+
+  /* Mostrar o offcanvas quando o menu estiver aberto */
+  .offcanvas.show {
+    transform: translateX(0); /* Exibe o offcanvas */
+  }
+}
+
+/* Ajuste para desktop */
+@media (min-width: 768px) {
+  .navbar-collapse {
+    display: flex; /* Exibe o menu horizontal em telas grandes */
+    position: static;
+    transform: none;
+    height: auto;
+    width: auto;
+    box-shadow: none;
+    background: none;
+    padding: 0;
+  }
+
+  .nav-link {
+    display: inline-block; /* Menu horizontal */
+    margin: 0 10px;
+    font-size: 16px;
+  }
+
+  .header-login-btn {
+    margin-left: 15px;
+    display: inline-block;
+  }
+
+  .navbar-toggle {
+    display: none; /* Esconde o botão de menu em telas grandes */
+  }
 }
