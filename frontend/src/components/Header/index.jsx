@@ -57,18 +57,15 @@ const Header = () => {
           {/* Menu na tela maior */}
           <Navbar.Collapse id="basic-navbar-nav" className="navbar-collapse">
             <Nav className="ms-auto">
-              <Nav.Link href="#start" onClick={closeMenu}>
+              <Nav.Link href="#start">
                 Início
               </Nav.Link>
-              <Nav.Link href="#about" onClick={closeMenu}>
+              <Nav.Link href="#about">
                 Sobre
               </Nav.Link>
-              <Nav.Link href="#features" onClick={closeMenu}>
+              <Nav.Link href="#features">
                 Funcionalidades
               </Nav.Link>
-              {/* <Nav.Link href="#contact" onClick={closeMenu}> */}
-                {/* Contato */}
-              {/* </Nav.Link> */}
             </Nav>
             <Link to="/login" className="header-login-btn" onClick={closeMenu}>
               Login
@@ -92,18 +89,15 @@ const Header = () => {
         </Offcanvas.Header>
         <Offcanvas.Body>
           <Nav className="flex-column">
-            <Nav.Link href="#start" onClick={closeMenu}>
+            <Nav.Link href="#start">
               Início
             </Nav.Link>
-            <Nav.Link href="#about" onClick={closeMenu}>
+            <Nav.Link href="#about">
               Sobre
             </Nav.Link>
-            <Nav.Link href="#features" onClick={closeMenu}>
+            <Nav.Link href="#features">
               Funcionalidades
             </Nav.Link>
-            {/* <Nav.Link href="#contact" onClick={closeMenu}>
-              Contato
-            </Nav.Link> */}
             <Link to="/login" className="header-login-btn" onClick={closeMenu}>
               Login
             </Link>
