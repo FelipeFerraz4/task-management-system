@@ -1,0 +1,20 @@
+/* Footer.css */
+footer {
+  background-color: #343a40;
+  color: white;
+  padding: 20px 0;
+}
+
+footer p {
+  margin: 0;
+}
+
+footer a {
+  color: white;
+  text-decoration: none;
+  margin-left: 10px;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}

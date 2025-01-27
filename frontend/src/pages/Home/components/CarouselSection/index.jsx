@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { Carousel, Container } from "react-bootstrap";
-import MeetRoom from '../../assets/meet_room.png';
-import OfficeRoom from '../../assets/office_room.png';
-import OutsideRoom from '../../assets/outside_room.png';
+import MeetRoom from '../../../../assets/meet_room.png';
+import OfficeRoom from '../../../../assets/office_room.png';
+import OutsideRoom from '../../../../assets/outside_room.png';
 import "./styles.css";
 
 const CarouselSection = () => {

@@ -66,9 +66,9 @@ const Header = () => {
               <Nav.Link href="#features" onClick={closeMenu}>
                 Funcionalidades
               </Nav.Link>
-              <Nav.Link href="#contact" onClick={closeMenu}>
-                Contato
-              </Nav.Link>
+              {/* <Nav.Link href="#contact" onClick={closeMenu}> */}
+                {/* Contato */}
+              {/* </Nav.Link> */}
             </Nav>
             <Link to="/login" className="header-login-btn" onClick={closeMenu}>
               Login
@@ -101,9 +101,9 @@ const Header = () => {
             <Nav.Link href="#features" onClick={closeMenu}>
               Funcionalidades
             </Nav.Link>
-            <Nav.Link href="#contact" onClick={closeMenu}>
+            {/* <Nav.Link href="#contact" onClick={closeMenu}>
               Contato
-            </Nav.Link>
+            </Nav.Link> */}
             <Link to="/login" className="header-login-btn" onClick={closeMenu}>
               Login
             </Link>
