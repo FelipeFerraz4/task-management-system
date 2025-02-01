@@ -1,0 +1,17 @@
+.custom-carousel img {
+  height: 100%;
+  max-height: 500px;
+  object-fit: cover;
+}
+
+.custom-carousel .carousel-caption {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+@media (max-width: 768px) {
+  .custom-carousel .carousel-caption {
+    display: none; /* Esconde mensagens no mobile */
+  }
+}
