@@ -57,7 +57,7 @@ const Header = () => {
           {/* Menu na tela maior */}
           <Navbar.Collapse id="basic-navbar-nav" className="navbar-collapse">
             <Nav className="ms-auto">
-              <Nav.Link href="#start">
+              <Nav.Link href="/">
                 Início
               </Nav.Link>
               <Nav.Link href="#about">
@@ -89,7 +89,7 @@ const Header = () => {
         </Offcanvas.Header>
         <Offcanvas.Body>
           <Nav className="flex-column">
-            <Nav.Link href="#start">
+            <Nav.Link href="/">
               Início
             </Nav.Link>
             <Nav.Link href="#about">

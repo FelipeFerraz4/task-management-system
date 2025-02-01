@@ -1,17 +1,17 @@
 /* Funcionalidades.css */
-#funcionalidades {
+#features {
   background-color: #f8f9fa;
   padding-top: 50px;
   padding-bottom: 50px;
 }
 
-#funcionalidades h2 {
+#features h2 {
   font-size: 2rem;
   font-weight: bold;
   margin-bottom: 20px;
 }
 
-#funcionalidades .lead {
+#features .lead {
   font-size: 1.1rem;
   color: #6c757d;
 }
