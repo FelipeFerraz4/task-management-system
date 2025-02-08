@@ -12,7 +12,7 @@ function LoginData() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Login:", email, password);
-    navigate("/dashboard");
+    navigate("/home");
   };
 
   return (

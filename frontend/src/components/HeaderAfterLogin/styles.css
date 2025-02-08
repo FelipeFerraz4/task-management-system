@@ -1,0 +1,111 @@
+/* Estilização do Navbar */
+.navbar {
+  padding: 10px 20px;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.header-logo {
+  height: 40px;
+  margin-right: 10px;
+}
+
+.custom-menu-icon {
+  width: 30px;
+  height: 30px;
+}
+
+/* Botão de Login */
+.header-login-btn {
+  background-color: #007bff;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  margin-left: 15px;
+}
+
+.header-login-btn:hover {
+  background-color: #0056b3;
+  color: white;
+}
+
+/* Dropdown do usuário */
+.header-user-dropdown {
+  background-color: transparent !important;
+  border: none;
+  color: #333;
+  font-weight: bold;
+}
+
+.header-user-dropdown:hover,
+.header-user-dropdown:focus {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Estilo do dropdown */
+.dropdown-menu {
+  min-width: 150px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-item {
+  font-size: 14px;
+}
+
+.dropdown-item:hover {
+  background-color: #f8f9fa;
+}
+
+/* Offcanvas Menu */
+.offcanvas {
+  width: 250px !important;
+  background-color: #f8f9fa;
+}
+
+.offcanvas-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.close-menu-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.close-menu-btn img {
+  width: 24px;
+  height: 24px;
+}
+
+/* Links do Offcanvas */
+.offcanvas .nav-link {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  padding: 10px 15px;
+  border-radius: 5px;
+}
+
+.offcanvas .nav-link:hover {
+  background-color: #e9ecef;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .header-login-btn {
+    width: 100%;
+    text-align: center;
+    display: block;
+    margin: 10px 0;
+  }
+}
