@@ -1,0 +1,42 @@
+.container {
+  padding: 20px;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: bold;
+  color: #333;
+}
+
+.inputGroup {
+  max-width: 600px;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.inputGroup select {
+  max-width: 200px;
+}
+
+.inputGroup .form-control {
+  flex: 1;
+  min-width: 200px;
+}
+
+.inputGroup button {
+  white-space: nowrap;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+  }
+}
