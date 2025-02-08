@@ -1,11 +1,25 @@
-
 .custom-card {
-  width: 100%;       /* Garante que ocupe o espaço da coluna */
-  max-width: 250px;  /* Define um tamanho máximo */
-  margin: 10px;      /* Centraliza */
+  width: 100%;            /* Garante que o card ocupe toda a largura da coluna */
+  max-width: 220px;       /* Define um tamanho máximo */
+  aspect-ratio: 5/3;      /* Proporção largura maior que altura */
+  margin: 0 auto;         /* Centraliza o card */
 }
 
+/* Imagem do card */
 .card-image {
-  height: 120px;  /* Ajusta a altura da imagem */
+  width: 100%;            /* Garante que a imagem ocupe toda a largura do card */
+  aspect-ratio: 20/9;     /* Mantém proporção ideal para a imagem */
   object-fit: cover;
 }
+
+/* A partir de 1200px, os cards começam a crescer automaticamente */
+@media (min-width: 1200px) {
+  .custom-card {
+    max-width:none;
+    /* margin: 10px; */
+    width: 95%;
+    flex-grow: 1;         /* Permite que o card cresça automaticamente */
+    flex-shrink: 1;       /* Permite que o card encolha se necessário */
+  }
+}
+
