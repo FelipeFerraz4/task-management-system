@@ -1,0 +1,11 @@
+
+.custom-card {
+  width: 100%;       /* Garante que ocupe o espaço da coluna */
+  max-width: 250px;  /* Define um tamanho máximo */
+  margin: 10px;      /* Centraliza */
+}
+
+.card-image {
+  height: 120px;  /* Ajusta a altura da imagem */
+  object-fit: cover;
+}

@@ -1,5 +1,8 @@
 import Header from "../../components/HeaderAfterLogin";
+import Footer from "../../components/Footer";
 import { useNavigate } from "react-router-dom";
+import "./styles.css";
+import PageData from "./components/PageData";
 
 const navLinks = [{ label: "Início", href: "/" }];
 
@@ -14,7 +17,16 @@ function HomeAfterLogin() {
     navigate("/login");
   };
 
-  return <Header navLinks={navLinks} user={user} onLogout={handleLogout} />;
+  return (
+    <div className="base_page">
+      <Header navLinks={navLinks} user={user} onLogout={handleLogout} />
+        <div className="page-content d-flex">
+          <PageData />
+        </div>
+        <Footer />
+    </div>
+  );
+
 }
 
 export default HomeAfterLogin;
