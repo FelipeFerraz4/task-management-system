@@ -1,14 +1,15 @@
 import Header from "../../components/HeaderAfterLogin";
 import Footer from "../../components/Footer";
 import { useNavigate } from "react-router-dom";
+import UserProfile from "./components/UserProfile";
 import "./styles.css";
-import PageData from "./components/PageData";
 
 const navLinks = [{ label: "Home", href: "/home" }];
 
 const user = { name: "João Silva" };
+const userTest = { id: "1", name: "Julia", email: "julia@gmail.com", role: "employee" };
 
-function HomeAfterLogin() {
+function ProfilePage() {
   const navigate = useNavigate();
 
   const handleLogout = (e) => {
@@ -17,11 +18,17 @@ function HomeAfterLogin() {
     navigate("/login");
   };
 
+  const handleUpdateProfile = (formData) => {
+    userTest.name = formData.name;
+    userTest.email = formData.email;
+    userTest.role = formData.role;
+  }
+
   return (
     <div className="base_page">
       <Header navLinks={navLinks} user={user} onLogout={handleLogout} />
         <div className="page-content d-flex">
-          <PageData />
+          <UserProfile user={userTest} handleUpdateProfile={handleUpdateProfile}/>
         </div>
         <Footer />
     </div>
@@ -29,4 +36,4 @@ function HomeAfterLogin() {
 
 }
 
-export default HomeAfterLogin;
+export default ProfilePage;

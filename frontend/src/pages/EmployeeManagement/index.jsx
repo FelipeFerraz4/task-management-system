@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "./styles.css";
 import PageData from "./components/PageData";
 
-const navLinks = [{ label: "Início", href: "/" }];
+const navLinks = [{ label: "Home", href: "/home" }];
 
 const user = { name: "João Silva" };
 

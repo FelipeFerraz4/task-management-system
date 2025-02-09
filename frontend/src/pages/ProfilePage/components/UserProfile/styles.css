@@ -1,0 +1,71 @@
+/* Container principal */
+.profile-container {
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Título do perfil */
+.profile-title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Campo de informação */
+.profile-info {
+  margin-bottom: 15px;
+}
+
+.profile-info label {
+  font-weight: bold;
+  color: #555;
+}
+
+.profile-info p {
+  background-color: #f8f9fa;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+/* Botão de edição */
+.edit-button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s;
+}
+
+.edit-button:hover {
+  background-color: #0056b3;
+}
+
+/* Modal de confirmação */
+.confirm-modal .modal-body {
+  text-align: center;
+}
+
+.confirm-modal input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.confirm-modal .modal-footer {
+  display: flex;
+  justify-content: space-between;
+}

@@ -4,6 +4,7 @@ import Login from "../pages/Login";
 import PageNotFound from "../pages/PageNotFound";
 import HomeAfterLogin from "../pages/HomeAfterLogin";
 import EmployeeManagement from "../pages/EmployeeManagement";
+import ProfilePage from "../pages/ProfilePage";
 
 function AppRoutes() {
   return (
@@ -11,6 +12,7 @@ function AppRoutes() {
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />}/>
       <Route path="/home" element={<HomeAfterLogin />}/>
+      <Route path="/profile" element={<ProfilePage />}/>
       <Route path="/employee-management" element={<EmployeeManagement />}/>
       <Route path="*" element={<PageNotFound />} />
     </Routes>

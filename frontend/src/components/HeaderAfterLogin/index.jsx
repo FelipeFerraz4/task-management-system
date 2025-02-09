@@ -3,6 +3,7 @@ import { Navbar, Nav, Container, Offcanvas, Dropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import logo from "../../assets/LogoFoxBlue.png";
 import MenuIcon from "../../assets/menu.png";
+import PropTypes from "prop-types";
 import RightArrow from "../../assets/right_arrow.png";
 import "./styles.css"; // Importa o arquivo de estilos
 
@@ -23,7 +24,7 @@ const Header = ({ navLinks, user, onLogout }) => {
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, [menuOpen]);
+  }, [menuOpen, isDesktop]);
 
   return (
     <>
@@ -54,7 +55,7 @@ const Header = ({ navLinks, user, onLogout }) => {
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                   <Dropdown.Item as={Link} to="/profile">Perfil</Dropdown.Item>
-                  <Dropdown.Item as={Link} to="/settings">Configurações</Dropdown.Item>
+                  {/* <Dropdown.Item as={Link} to="/settings">Configurações</Dropdown.Item> */}
                   <Dropdown.Divider />
                   <Dropdown.Item onClick={onLogout}>Sair</Dropdown.Item>
                 </Dropdown.Menu>
@@ -90,7 +91,7 @@ const Header = ({ navLinks, user, onLogout }) => {
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                   <Dropdown.Item as={Link} to="/profile">Perfil</Dropdown.Item>
-                  <Dropdown.Item as={Link} to="/settings">Configurações</Dropdown.Item>
+                  {/* <Dropdown.Item as={Link} to="/settings">Configurações</Dropdown.Item> */}
                   <Dropdown.Divider />
                   <Dropdown.Item onClick={onLogout}>Sair</Dropdown.Item>
                 </Dropdown.Menu>
@@ -105,6 +106,17 @@ const Header = ({ navLinks, user, onLogout }) => {
       </Offcanvas>
     </>
   );
+};
+
+Header.propTypes = {
+  onLogout: PropTypes.func.isRequired, 
+  navLinks: PropTypes.arrayOf(PropTypes.shape({ 
+    label: PropTypes.string.isRequired,
+    href: PropTypes.string.isRequired,
+  })).isRequired,
+  user: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+  }),
 };
 
 export default Header;
