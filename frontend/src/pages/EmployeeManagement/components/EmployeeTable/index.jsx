@@ -95,7 +95,7 @@ const EmployeeTable = ({ employees, selectedEmployees, handleCheckboxChange, han
 EmployeeTable.propTypes = {
   employees: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.number.isRequired,
+      id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
       email: PropTypes.string.isRequired,
       role: PropTypes.string.isRequired,

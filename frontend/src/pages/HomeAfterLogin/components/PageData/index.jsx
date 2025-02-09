@@ -1,13 +1,13 @@
 import { Card, Row, Col } from "react-bootstrap";
-import { Link } from "react-router-dom"; // Importando o Link do React Router
+import { Link } from "react-router-dom"; 
 import "./styles.css";
 import Image from "../../../../assets/office_room.png";
 
 const features = [
     { "title": "Equipe & Colaboradores", "subtitle": "Controle funcionários e permissões", "link": "/employee-management" },
-    { "title": "Título 2", "subtitle": "Texto descritivo sobre o card 2.", "link": "/pagina2" },
-    { "title": "Título 3", "subtitle": "Texto descritivo sobre o card 3.", "link": "/pagina3" },
-    { "title": "Título 4", "subtitle": "Texto descritivo sobre o card 4.", "link": "/pagina4" },
+    { "title": "Tarefas e Designações", "subtitle": "Gerencie e atribua tarefas para funcionários.", "link": "/pagina2" },
+    { "title": "Acompanhamento de Tarefas", "subtitle": "Consulte o histórico de tarefas", "link": "/pagina3" },
+    { "title": "Análise e Relatórios", "subtitle": "Gere relatórios e Obtenha insights valiosos", "link": "/pagina4" },
 ];
 
 function PageData() {

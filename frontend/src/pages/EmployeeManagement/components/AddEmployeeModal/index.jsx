@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Modal, Button, Form, InputGroup } from "react-bootstrap";
 import PropTypes from "prop-types";
 
-const AddEmployeeModal = ({ show, handleClose, handleAddEmployee, employee }) => {
+const AddEmployeeModal = ({ show, handleClose, handleAddEmployee, employee = null }) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -83,15 +83,11 @@ AddEmployeeModal.propTypes = {
   handleClose: PropTypes.func.isRequired,
   handleAddEmployee: PropTypes.func.isRequired,
   employee: PropTypes.shape({
-    id: PropTypes.number,
+    id: PropTypes.string,
     name: PropTypes.string,
     email: PropTypes.string,
     role: PropTypes.string,
   }),
-};
-
-AddEmployeeModal.defaultProps = {
-  employee: null,
 };
 
 export default AddEmployeeModal;
