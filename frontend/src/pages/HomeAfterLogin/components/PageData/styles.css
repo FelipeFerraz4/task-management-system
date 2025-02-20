@@ -1,5 +1,6 @@
 .custom-card {
   width: 100%;            /* Garante que o card ocupe toda a largura da coluna */
+  height: 15em;
   max-width: 220px;       /* Define um tamanho máximo */
   aspect-ratio: 5/3;      /* Proporção largura maior que altura */
   margin: 0 auto;         /* Centraliza o card */
@@ -16,6 +17,7 @@
 @media (min-width: 1200px) {
   .custom-card {
     max-width:none;
+    height: auto;
     /* margin: 10px; */
     width: 95%;
     flex-grow: 1;         /* Permite que o card cresça automaticamente */

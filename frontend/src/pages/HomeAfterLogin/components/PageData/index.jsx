@@ -6,7 +6,7 @@ import Image from "../../../../assets/office_room.png";
 const features = [
     { "title": "Equipe & Colaboradores", "subtitle": "Controle funcionários e permissões", "link": "/employee-management" },
     { "title": "Tarefas e Designações", "subtitle": "Gerencie e atribua tarefas para funcionários.", "link": "/pagina2" },
-    { "title": "Acompanhamento de Tarefas", "subtitle": "Consulte o histórico de tarefas", "link": "/pagina3" },
+    { "title": "Acompanhamento de Tarefas", "subtitle": "Consulte o histórico de tarefas", "link": "/task/history" },
     { "title": "Análise e Relatórios", "subtitle": "Gere relatórios e Obtenha insights valiosos", "link": "/pagina4" },
 ];
 
