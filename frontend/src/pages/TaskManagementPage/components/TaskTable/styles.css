@@ -1,0 +1,106 @@
+.table-container {
+  overflow-x: auto;
+}
+
+/* Tabela principal (versão desktop) */
+.table {
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.table th {
+  background-color: #007bff;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  vertical-align: middle;
+}
+
+.table td {
+  text-align: center;
+  padding: 8px;
+  vertical-align: middle;
+}
+
+.icon-btn {
+  background: none;
+  cursor: pointer;
+  margin: 10px;
+  border: none;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+}
+
+@media (max-width: 992px) {
+  .table {
+    display: block;
+  }
+  
+  .table thead {
+    display: none;
+  }
+
+  .table tbody, .table tr {
+    display: block;
+    width: 100%;
+  }
+
+  .table tr {
+    border-bottom: 2px solid #ddd;
+    margin-bottom: 10px;
+  }
+
+  .table td {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    text-align: left;
+  }
+
+  .table td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    color: #007bff;
+  }
+
+  /* Seletor de todos os checkboxes na versão mobile */
+  .mobile-select-all {
+    margin-bottom: 15px;
+  }
+
+  .mobile-checkbox {
+    margin-right: 10px;
+  }
+
+  /* Cartão de funcionário no mobile */
+  .mobile-card {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    background-color: #fff;
+  }
+
+  .mobile-card p {
+    margin: 5px 0;
+  }
+
+  .mobile-actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+
+  /* Estilo para checkbox individual na versão mobile */
+  .mobile-checkbox {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+  }
+}

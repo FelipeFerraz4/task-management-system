@@ -1,0 +1,26 @@
+.modal-header {
+  background-color: #007bff;
+  color: white;
+  border-bottom: none;
+}
+
+.modal-title {
+  font-weight: bold;
+}
+
+.delete-modal p {
+  font-size: 16px;
+  text-align: center;
+}
+
+.delete-modal input {
+  text-align: center;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .modal-content {
+    width: 90%;
+    margin: auto;
+  }
+}
