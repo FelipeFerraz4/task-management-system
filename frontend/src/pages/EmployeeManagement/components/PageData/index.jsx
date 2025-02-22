@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, InputGroup, Form } from "react-bootstrap";
 import EmployeeTable from "../EmployeeTable";
 import DeleteModal from "../DeleteModal";
@@ -14,6 +14,8 @@ const PageData = () => {
   ]);
 
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
   const [showFilterModal, setShowFilterModal] = useState(false);
   const [showAddEmployeeModal, setShowAddEmployeeModal] = useState(false); // Para controlar o modal de adicionar/editar funcionário
   const [formData, setFormData] = useState({ id: "", name: "", email: "", role: "employee" });
@@ -72,13 +74,48 @@ const PageData = () => {
     }
   };
 
+  const handleSearch = () => {
+      if (!searchTerm.trim()) return;
+  
+      // Filtra as tarefas com base no termo de pesquisa
+      const foundEmployee = employees.filter((employee) => 
+        employee.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        employee.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        employee.role.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+  
+      setSearchResults(foundEmployee);
+    };
+  
+    // Atualizar `filteredTasks` sempre que o termo de busca ou o filtro mudar
+    useEffect(() => {
+      if (searchTerm.trim()) {
+        const foundTasks = employees.filter((employee) => 
+          employee.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          employee.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          employee.role.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        setSearchResults(foundTasks);
+      } else {
+        setSearchResults([]); // Limpa os resultados de pesquisa se não houver termo de busca
+      }
+    }, [searchTerm, employees]);
+  
+    // Combina os resultados da pesquisa com os filtros aplicados
+    const EmployeesToDisplay = searchResults.length > 0 ? searchResults : filteredEmployees;
+
   return (
     <div className="container">
       <h2>Gerenciamento de Funcionários</h2>
 
       <InputGroup className="inputGroup mb-3">
-        <Form.Control type="text" placeholder="Pesquisar" />
-        <Button variant="primary">Buscar</Button>
+        <Form.Control 
+          type="text" 
+          placeholder="Pesquisar" 
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        <Button variant="primary" onClick={handleSearch}>Buscar</Button>
         <Button variant="secondary" onClick={() => setShowFilterModal(true)}>Filtrar</Button>
       </InputGroup>
 
@@ -87,7 +124,7 @@ const PageData = () => {
       </Button>
 
       <EmployeeTable
-        employees={filteredEmployees}
+        employees={EmployeesToDisplay}
         selectedEmployees={selectedEmployees}
         handleCheckboxChange={handleCheckboxChange}
         handleSelectAll={handleSelectAll}

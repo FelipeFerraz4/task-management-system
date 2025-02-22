@@ -12,7 +12,7 @@ const FilterModal = ({ show, handleClose, handleApplyFilter, filter, setFilter }
   };
 
   const handleClear = () => {
-    setFilter({ name: "", email: "", role: "" }); // Limpa os filtros
+    setFilter({ name: "", email: "", role: "" });
   };
 
   return (
