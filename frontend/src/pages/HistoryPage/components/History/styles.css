@@ -1,22 +1,21 @@
 .history-container {
   background: white;
   width: 90%;
-  max-width: 600px; /* Ajuste máximo */
+  max-width: 600px;
   height: auto;
-  max-height: 80vh; /* Evita ocupar toda a tela */
+  max-height: 80vh; 
   padding: 20px;
   margin: 20px;
   border-radius: 10px;
   text-align: left;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  overflow-y: auto; /* Permite rolagem se o conteúdo for grande */
+  overflow-y: auto; 
 }
 
-/* Responsividade para telas menores */
 @media (max-width: 768px) {
   .history-container {
     width: 95%;
-    max-width: 100%; /* Garante que não ultrapasse a tela */
+    max-width: 100%;
     padding: 15px;
   }
 }
@@ -28,7 +27,7 @@ h2 {
 
 .filters {
   display: flex;
-  flex-wrap: wrap; /* Permite quebra de linha */
+  flex-wrap: wrap;
   gap: 10px;
   margin-bottom: 15px;
 }
@@ -36,7 +35,7 @@ h2 {
 .filters input,
 .filters select {
   flex: 1;
-  min-width: 150px; /* Evita que fiquem muito pequenos */
+  min-width: 150px;
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -81,7 +80,6 @@ h2 {
   background: orange;
 }
 
-/* Estilos do Modal */
 .modal {
   position: fixed;
   top: 0;
@@ -97,9 +95,9 @@ h2 {
 
 .modal-content {
   background: white;
-  width: auto; /* Mantém um tamanho adequado */
-  max-width: 90vw; /* Evita ocupar toda a largura da tela */
-  max-height: 80vh; /* Evita ocupar toda a tela */
+  width: auto;
+  max-width: 90vw;
+  max-height: 80vh; 
   padding: 20px;
   border-radius: 10px;
   text-align: center;
@@ -107,7 +105,6 @@ h2 {
   overflow-y: auto;
 }
 
-/* Responsividade do Modal */
 @media (max-width: 480px) {
   .modal-content {
     width: 95%;
