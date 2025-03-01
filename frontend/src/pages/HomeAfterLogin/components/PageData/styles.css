@@ -22,3 +22,9 @@
   }
 }
 
+@media (min-width: 1400px) {
+  .custom-card {
+    height: 16em;
+    width: 70%;
+  }
+}
