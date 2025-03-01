@@ -5,9 +5,9 @@ import logo from "../../assets/LogoFoxBlue.png";
 import MenuIcon from "../../assets/menu.png";
 import PropTypes from "prop-types";
 import RightArrow from "../../assets/right_arrow.png";
-import "./styles.css"; // Importa o arquivo de estilos
+import "./styles.css";
 
-const Header = ({ navLinks, user, onLogout }) => {
+function Header ({ navLinks, user, onLogout }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 768);
 
@@ -30,15 +30,18 @@ const Header = ({ navLinks, user, onLogout }) => {
     <div className="custom-header">
       <Navbar bg="light" expand="md" className="shadow-md" expanded={menuOpen}>
         <Container>
+          {/* Logo and Brand Name */}
           <Navbar.Brand href={navLinks[0].href} className="fw-bold d-flex align-items-center">
             <img src={logo} alt="WorkHub Logo" className="header-logo" />
             WorkHub
           </Navbar.Brand>
 
+          {/* Menu Toggle Button for Small Screens */}
           <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={toggleMenu}>
             <img src={MenuIcon} alt="Menu Icon" className="custom-menu-icon" />
           </Navbar.Toggle>
 
+          {/* Main Navigation Links */}
           <Navbar.Collapse id="basic-navbar-nav" className="navbar-collapse navbar_link">
             <Nav className="ms-auto">
               {navLinks.map((link, index) => (
@@ -48,6 +51,7 @@ const Header = ({ navLinks, user, onLogout }) => {
               ))}
             </Nav>
 
+            {/* User Authentication Options */}
             {user ? (
               <Dropdown>
                 <Dropdown.Toggle variant="light" className="header-user-dropdown">
@@ -68,7 +72,8 @@ const Header = ({ navLinks, user, onLogout }) => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-
+      
+      {/* Offcanvas Menu for Small Screens */}
       <Offcanvas show={menuOpen} onHide={closeMenu} placement="end" className="offcanvas">
         <Offcanvas.Header>
           <Offcanvas.Title className="offcanvas-title">Menu</Offcanvas.Title>
@@ -84,6 +89,7 @@ const Header = ({ navLinks, user, onLogout }) => {
               </Nav.Link>
             ))}
 
+            {/* User Authentication in Offcanvas Menu */}
             {user ? (
               <Dropdown>
                 <Dropdown.Toggle variant="light" className="header-user-dropdown">
