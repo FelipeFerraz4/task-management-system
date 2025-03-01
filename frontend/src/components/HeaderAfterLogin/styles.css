@@ -111,6 +111,12 @@ html {
   display: block;
 }
 
+.link {
+  text-decoration: none;
+  color: black;
+  padding: 10px;
+}
+
 @media (max-width: 768px) {
   .header-login-btn {
     width: 100%;

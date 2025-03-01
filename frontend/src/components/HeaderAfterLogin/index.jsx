@@ -45,9 +45,9 @@ function Header ({ navLinks, user, onLogout }) {
           <Navbar.Collapse id="basic-navbar-nav" className="navbar-collapse navbar_link">
             <Nav className="ms-auto">
               {navLinks.map((link, index) => (
-                <Nav.Link key={index} href={link.href}>
+                <Link key={index} to={link.href} className="link">
                   {link.label}
-                </Nav.Link>
+                </Link>
               ))}
             </Nav>
 
