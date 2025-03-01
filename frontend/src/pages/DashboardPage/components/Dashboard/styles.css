@@ -1,0 +1,19 @@
+.dashboard-container {
+  padding: 20px;
+}
+
+.kpi-card {
+  text-align: center;
+  background: #f8f9fa;
+  border-left: 5px solid #007bff;
+}
+
+.kpi-card .card-title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.kpi-card .card-text {
+  font-size: 24px;
+  color: #007bff;
+}
