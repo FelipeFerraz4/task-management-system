@@ -1,6 +1,8 @@
 html {
   scroll-padding-top: 80px;
+  scroll-behavior: smooth;
 }
+
 .custom-header {
   position: fixed;
   top: 0;

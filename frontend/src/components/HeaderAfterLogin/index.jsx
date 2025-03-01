@@ -44,11 +44,17 @@ function Header ({ navLinks, user, onLogout }) {
           {/* Main Navigation Links */}
           <Navbar.Collapse id="basic-navbar-nav" className="navbar-collapse navbar_link">
             <Nav className="ms-auto">
-              {navLinks.map((link, index) => (
-                <Link key={index} to={link.href} className="link">
+              {navLinks.map((link, index) => 
+              link.href.includes("#") ? (
+                <Nav.Link key={index} href={link.href} className="link">
                   {link.label}
-                </Link>
-              ))}
+                </Nav.Link>
+              ) : (
+                <Nav.Link key={index} as={Link} to={link.href} className="link">
+                  {link.label}
+                </Nav.Link>
+              )
+            )}
             </Nav>
 
             {/* User Authentication Options */}

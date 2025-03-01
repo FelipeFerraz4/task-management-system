@@ -7,11 +7,11 @@ import './styles.css';
 
 const navLinks = [
   { label: "Início", href: "/" },
-  { label: "Sobre", href: "#about" },
-  { label: "Funcionalidades", href: "#features" },
+  // { label: "Sobre", href: "#about" },
+  // { label: "Funcionalidades", href: "#features" },
 ];
 
-const user = { name: "João Silva" };
+// const user = { name: "João Silva" };
 
 // Logout function placeholder
 const handleLogout = () => {
@@ -22,7 +22,7 @@ function PageNotFound() {
   const navigate = useNavigate();
   return (
     <div className="page-not-found-container">
-      <Header navLinks={navLinks} user={user} onLogout={handleLogout} />
+      <Header navLinks={navLinks} onLogout={handleLogout} />
 
       {/* Main content container for the "Page Not Found" message */}
       <Container className="page-not-found">
