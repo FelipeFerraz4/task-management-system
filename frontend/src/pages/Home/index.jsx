@@ -6,9 +6,9 @@ import Features from "./components/Features";
 import "./styles.css";
 
 const navLinks = [
-  { label: "Início", href: "#start" },
-  { label: "Sobre", href: "#about" },
-  { label: "Funcionalidades", href: "#features" },
+  { label: "Início", href: "/" },
+  // { label: "Sobre", href: "#about" },
+  // { label: "Funcionalidades", href: "#features" },
 ];
 
 const handleLogout = () => {
