@@ -1,10 +1,9 @@
-/* src/styles.css */
 .carousel-item img {
-  object-fit: cover; /* Faz as imagens cobrir o espaço sem distorcer */
+  object-fit: cover; 
 }
 
 .carousel-caption {
-  background-color: rgba(0, 0, 0, 0.5); /* Coloca um fundo translúcido para as legendas */
+  background-color: rgba(0, 0, 0, 0.5); 
   padding: 20px;
 }
 
@@ -19,11 +18,11 @@
 
 @media (min-width: 425px) {
   .carousel-caption h3 {
-  font-size: 3rem;
-  font-weight: bold;
-}
+    font-size: 3rem;
+    font-weight: bold;
+  }
 
-.carousel-caption p {
-  font-size: 1.25rem;
-}
+  .carousel-caption p {
+    font-size: 1.25rem;
+  }
 }

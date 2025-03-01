@@ -3,7 +3,7 @@ import Header from "../../components/HeaderAfterLogin";
 import Footer from "../../components/Footer";
 import About from "./components/About";
 import Features from "./components/Features";
-import "./styles.css"; // Importando os estilos
+import "./styles.css";
 
 const navLinks = [
   { label: "Início", href: "#start" },
@@ -13,16 +13,13 @@ const navLinks = [
 
 const handleLogout = () => {
   console.log("Usuário deslogado");
-  // Adicione a lógica de logout aqui
 };
 
 function Home() {
   return (
     <>
-      {/* Header fixo no topo */}
       <Header className="fixed-top" navLinks={navLinks} onLogout={handleLogout} />
 
-      {/* Adicionando padding-top para evitar sobreposição */}
       <div className="content">
         <CarouselSection />
         <About />

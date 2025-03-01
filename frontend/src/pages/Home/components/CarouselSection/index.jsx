@@ -5,10 +5,10 @@ import OfficeRoom from '../../../../assets/office_room.png';
 import OutsideRoom from '../../../../assets/outside_room.png';
 import "./styles.css";
 
-const CarouselSection = () => {
-  const [headerHeight, setHeaderHeight] = useState(70); // Valor padrão do cabeçalho (ajuste conforme necessário)
+function CarouselSection () {
+  const [headerHeight, setHeaderHeight] = useState(70);
 
-  // Calcula a altura do cabeçalho dinamicamente
+  // Calculates the height of the header dynamically on component mount
   useEffect(() => {
     const header = document.querySelector(".navbar");
     if (header) {
@@ -18,13 +18,15 @@ const CarouselSection = () => {
 
   return (
     <Container id="start" fluid className="p-0">
+      {/* Carousel component with multiple items */}
       <Carousel>
+        {/* First Carousel Item */}
         <Carousel.Item>
           <img
             className="d-block w-100"
             src={MeetRoom}
             alt="Meet Room"
-            style={{ height: `calc(100vh - ${headerHeight}px)` }} // Ajuste dinâmico da altura
+            style={{ height: `calc(100vh - ${headerHeight}px)` }}
           />
           <Carousel.Caption>
             <h3>Bem-vindo ao WorkHub!</h3>
@@ -32,12 +34,13 @@ const CarouselSection = () => {
           </Carousel.Caption>
         </Carousel.Item>
 
+        {/* Second Carousel Item */}
         <Carousel.Item>
           <img
             className="d-block w-100"
             src={OfficeRoom}
             alt="Office Room"
-            style={{ height: `calc(100vh - ${headerHeight}px)` }} // Ajuste dinâmico da altura
+            style={{ height: `calc(100vh - ${headerHeight}px)` }}
           />
           <Carousel.Caption>
             <h3>Visualize o progresso da equipe</h3>
@@ -45,12 +48,13 @@ const CarouselSection = () => {
           </Carousel.Caption>
         </Carousel.Item>
 
+        {/* Third Carousel Item */}
         <Carousel.Item>
           <img
             className="d-block w-100"
             src={OutsideRoom}
             alt="Outside Room"
-            style={{ height: `calc(100vh - ${headerHeight}px)` }} // Ajuste dinâmico da altura
+            style={{ height: `calc(100vh - ${headerHeight}px)` }}
           />
           <Carousel.Caption>
             <h3>Histórico de Tarefas</h3>

@@ -2,11 +2,11 @@ import { Container, Row, Col, Card } from "react-bootstrap";
 import { CheckCircle, BarChart, Users } from "react-feather";
 import "./styles.css";
 
-const About = () => {
+function About () {
   return (
     <section id="about" className="my-5">
       <Container>
-        {/* Título e Descrição */}
+        {/* Title and Description Section */}
         <Row className="mb-4">
           <Col md={12} className="text-center">
             <h2 className="fw-bold">Sobre o Sistema</h2>
@@ -16,7 +16,7 @@ const About = () => {
           </Col>
         </Row>
 
-        {/* Seção de Objetivo */}
+        {/* Objective Section */}
         <Row className="justify-content-center">
           <Col md={10}>
             <Card className="shadow-sm border-0">
@@ -31,8 +31,9 @@ const About = () => {
           </Col>
         </Row>
 
-        {/* Seção de Benefícios */}
+        {/* Benefits Section */}
         <Row className="mt-4">
+          {/* First Benefit */}
           <Col md={4}>
             <Card className="text-center shadow-sm border-0">
               <Card.Body>
@@ -42,6 +43,8 @@ const About = () => {
               </Card.Body>
             </Card>
           </Col>
+
+          {/* Second Benefit */}
           <Col md={4}>
             <Card className="text-center shadow-sm border-0">
               <Card.Body>
@@ -51,6 +54,8 @@ const About = () => {
               </Card.Body>
             </Card>
           </Col>
+
+          {/* Third Benefit */}
           <Col md={4}>
             <Card className="text-center shadow-sm border-0">
               <Card.Body>

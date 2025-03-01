@@ -2,11 +2,11 @@ import { Container, Row, Col, Card } from "react-bootstrap";
 import { BarChart, CheckCircle, Clock, FileText, Users, Shield } from "react-feather"; // Ícones modernos
 import "./styles.css";
 
-const Features = () => {
+function Features () {
   return (
     <section id="features" className="bg-light py-5">
       <Container>
-        {/* Título e Descrição */}
+        {/* Title and Description */}
         <Row className="mb-4 text-center">
           <Col md={12}>
             <h2 className="fw-bold">Funcionalidades do Sistema</h2>
@@ -16,7 +16,7 @@ const Features = () => {
           </Col>
         </Row>
 
-        {/* Cards com funcionalidades */}
+        {/* Feature Cards */}
         <Row>
           <Col md={4}>
             <Card className="text-center shadow-sm border-0">
@@ -47,6 +47,7 @@ const Features = () => {
           </Col>
         </Row>
 
+        {/* Additional Feature Cards */}
         <Row className="mt-4">
           <Col md={4}>
             <Card className="text-center shadow-sm border-0">
