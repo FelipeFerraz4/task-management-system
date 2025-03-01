@@ -1,0 +1,4 @@
+/* Ajusta o espaçamento do conteúdo para não ficar atrás do Header */
+.content {
+  padding-top: 80px; /* Ajuste conforme a altura do Header */
+}

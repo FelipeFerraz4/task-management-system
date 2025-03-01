@@ -27,7 +27,7 @@ const Header = ({ navLinks, user, onLogout }) => {
   }, [menuOpen, isDesktop]);
 
   return (
-    <>
+    <div className="custom-header">
       <Navbar bg="light" expand="md" className="shadow-md" expanded={menuOpen}>
         <Container>
           <Navbar.Brand href={navLinks[0].href} className="fw-bold d-flex align-items-center">
@@ -39,7 +39,7 @@ const Header = ({ navLinks, user, onLogout }) => {
             <img src={MenuIcon} alt="Menu Icon" className="custom-menu-icon" />
           </Navbar.Toggle>
 
-          <Navbar.Collapse id="basic-navbar-nav" className="navbar-collapse">
+          <Navbar.Collapse id="basic-navbar-nav" className="navbar-collapse navbar_link">
             <Nav className="ms-auto">
               {navLinks.map((link, index) => (
                 <Nav.Link key={index} href={link.href}>
@@ -104,7 +104,7 @@ const Header = ({ navLinks, user, onLogout }) => {
           </Nav>
         </Offcanvas.Body>
       </Offcanvas>
-    </>
+    </div>
   );
 };
 

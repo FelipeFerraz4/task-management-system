@@ -3,14 +3,13 @@ import Header from "../../components/HeaderAfterLogin";
 import Footer from "../../components/Footer";
 import About from "./components/About";
 import Features from "./components/Features";
+import "./styles.css"; // Importando os estilos
 
 const navLinks = [
-  { label: "Início", href: "/" },
+  { label: "Início", href: "#start" },
   { label: "Sobre", href: "#about" },
   { label: "Funcionalidades", href: "#features" },
 ];
-
-// const user = { name: "João Silva" };
 
 const handleLogout = () => {
   console.log("Usuário deslogado");
@@ -20,11 +19,17 @@ const handleLogout = () => {
 function Home() {
   return (
     <>
-        <Header navLinks={navLinks} onLogout={handleLogout} />
+      {/* Header fixo no topo */}
+      <Header className="fixed-top" navLinks={navLinks} onLogout={handleLogout} />
+
+      {/* Adicionando padding-top para evitar sobreposição */}
+      <div className="content">
         <CarouselSection />
         <About />
         <Features />
-        <Footer />
+      </div>
+
+      <Footer />
     </>
   );
 }

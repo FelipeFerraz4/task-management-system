@@ -1,3 +1,16 @@
+html {
+  scroll-padding-top: 80px; /* Ajuste conforme a altura do seu Header */
+}
+.custom-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #ffffff; /* Garante que ele não fique transparente */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra sutil */
+  z-index: 1000; /* Mantém o Header sempre acima dos outros elementos */
+}
+
 /* Estilização do Navbar */
 .navbar {
   padding: 10px 20px;
@@ -100,6 +113,10 @@
   background-color: #e9ecef;
 }
 
+.navbar_link {
+  display: block;
+}
+
 /* Responsividade */
 @media (max-width: 768px) {
   .header-login-btn {
@@ -107,5 +124,9 @@
     text-align: center;
     display: block;
     margin: 10px 0;
+  }
+
+  .navbar_link {
+    display: none;
   }
 }
