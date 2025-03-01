@@ -2,9 +2,12 @@ import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement
 import { Line } from "react-chartjs-2";
 import { Card } from "react-bootstrap";
 
+// Register required Chart.js elements for line charts
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
-const LineChart = () => {
+function LineChart() {
+
+  // Data for the Line chart
   const data = {
     labels: ["Jan", "Fev", "Mar", "Abr", "Mai"],
     datasets: [
@@ -17,6 +20,7 @@ const LineChart = () => {
     ],
   };
 
+  // Chart options for better visualization
   const options = {
     scales: {
       y: {
@@ -27,9 +31,15 @@ const LineChart = () => {
   };
 
   return (
+
+    // Bootstrap Card component for layout
     <Card>
       <Card.Body>
+
+        {/* Title for the card */}
         <Card.Title>Produtividade dos Funcionários</Card.Title>
+
+        {/* Render the Line chart with the defined data and options */}
         <Line data={data} options={options} />
       </Card.Body>
     </Card>

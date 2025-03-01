@@ -1,6 +1,8 @@
 import { Table, Card } from "react-bootstrap";
 
-const TaskTable = () => {
+function TaskTable() {
+
+  // Mocked task data representing employees, number of tasks, and their status
   const tasks = [
     { funcionario: "João", tarefas: 10, status: "✅" },
     { funcionario: "Maria", tarefas: 8, status: "⚠️" },
@@ -8,9 +10,14 @@ const TaskTable = () => {
   ];
 
   return (
+    // Bootstrap Card component to encapsulate the task report
     <Card>
       <Card.Body>
+
+        {/* Card title */}
         <Card.Title>Relatório de Tarefas</Card.Title>
+
+        {/* Bootstrap Table with striped rows, borders, and hover effects */}
         <Table striped bordered hover>
           <thead>
             <tr>
@@ -20,6 +27,8 @@ const TaskTable = () => {
             </tr>
           </thead>
           <tbody>
+            
+            {/* Mapping through the tasks array to dynamically render table rows */}
             {tasks.map((task, index) => (
               <tr key={index}>
                 <td>{task.funcionario}</td>
