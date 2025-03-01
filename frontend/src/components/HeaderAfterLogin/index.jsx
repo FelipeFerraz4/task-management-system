@@ -30,7 +30,7 @@ const Header = ({ navLinks, user, onLogout }) => {
     <>
       <Navbar bg="light" expand="md" className="shadow-md" expanded={menuOpen}>
         <Container>
-          <Navbar.Brand href="/" className="fw-bold d-flex align-items-center">
+          <Navbar.Brand href={navLinks[0].href} className="fw-bold d-flex align-items-center">
             <img src={logo} alt="WorkHub Logo" className="header-logo" />
             WorkHub
           </Navbar.Brand>
