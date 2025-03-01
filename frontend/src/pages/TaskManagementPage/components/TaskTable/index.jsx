@@ -51,9 +51,9 @@ function TaskTable ({ tasks, selectedTasks, handleCheckboxChange, handleSelectAl
               <td className="text-center">{task.status}</td>
               <td className="text-center">{task.due_date}</td>
               <td className="text-center">{task.responsible}</td>
-              <td className="text-center">
 
-                {/* Edit and Delete action buttons */}
+              {/* Edit and Delete action buttons */}
+              <td className="text-center">
                 <button className="icon-btn" onClick={() => openModal(task)}>
                   <img src={editIcon} alt="Editar" className="icon" />
                 </button>

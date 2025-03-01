@@ -4,13 +4,17 @@ import deleteIcon from "../../../../assets/bin.png";
 import PropTypes from "prop-types";
 import "./styles.css";
 
-const EmployeeTable = ({ employees, selectedEmployees, handleCheckboxChange, handleSelectAll, openModal, openDeleteModal }) => {
+// EmployeeTable Component - Displays a list of employees in a table format (desktop) and a card format (mobile)
+function EmployeeTable({ employees, selectedEmployees, handleCheckboxChange, handleSelectAll, openModal, openDeleteModal }) {
   return (
     <div className="table-container">
-      {/* Tabela versão Desktop */}
+      
+      {/* Desktop Version of the Table */}
       <Table striped bordered hover className="table d-none d-md-table">
         <thead>
           <tr>
+
+            {/* Checkbox for selecting all employees */}
             <th>
               <Form.Check
                 type="checkbox"
@@ -26,9 +30,13 @@ const EmployeeTable = ({ employees, selectedEmployees, handleCheckboxChange, han
           </tr>
         </thead>
         <tbody>
+
+          {/* Mapping through employees to render each row */}
           {employees.map((employee) => (
             <tr key={employee.id}>
               <td>
+
+                {/* Checkbox to select individual employees */}
                 <Form.Check
                   type="checkbox"
                   checked={selectedEmployees.includes(employee.id)}
@@ -39,6 +47,8 @@ const EmployeeTable = ({ employees, selectedEmployees, handleCheckboxChange, han
               <td>{employee.name}</td>
               <td>{employee.email}</td>
               <td>{employee.role}</td>
+
+              {/* Edit and Delete action buttons */}
               <td>
                 <button className="icon-btn" onClick={() => openModal(employee)}>
                   <img src={editIcon} alt="Editar" className="icon" />
@@ -52,9 +62,10 @@ const EmployeeTable = ({ employees, selectedEmployees, handleCheckboxChange, han
         </tbody>
       </Table>
 
-      {/* Versão Mobile */}
+      {/* Mobile Version (Displays as Cards) */}
       <div className="mobile-table d-md-none">
-        {/* Checkbox para selecionar todos os itens na versão mobile */}
+
+        {/* Select All Checkbox for mobile */}
         <div className="mobile-select-all">
           <Form.Check
             type="checkbox"
@@ -64,7 +75,7 @@ const EmployeeTable = ({ employees, selectedEmployees, handleCheckboxChange, han
           />
         </div>
 
-        {/* Cartões de cada funcionário */}
+        {/* Rendering employees as individual cards for mobile */}
         {employees.map((employee) => (
           <div key={employee.id} className="mobile-card">
             <div className="mobile-checkbox">
@@ -77,6 +88,8 @@ const EmployeeTable = ({ employees, selectedEmployees, handleCheckboxChange, han
             <p><strong>Nome:</strong> {employee.name}</p>
             <p><strong>Email:</strong> {employee.email}</p>
             <p><strong>Função:</strong> {employee.role}</p>
+
+            {/* Edit and Delete action buttons */}
             <div className="mobile-actions">
               <button className="icon-btn" onClick={() => openModal(employee)}>
                 <img src={editIcon} alt="Editar" className="icon" />

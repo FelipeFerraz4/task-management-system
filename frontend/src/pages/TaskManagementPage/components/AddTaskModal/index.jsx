@@ -3,7 +3,7 @@ import { Modal, Button, Form, InputGroup } from "react-bootstrap";
 import PropTypes from "prop-types";
 
 // AddEmployeeModal component to add or edit a task
-function AddEmployeeModal({ show, handleClose, handleAddTask, task = null }) {
+function AddTaskModal({ show, handleClose, handleAddTask, task = null }) {
 
   // State to hold the form data for the task being added or edited
   const [formData, setFormData] = useState({
@@ -113,7 +113,7 @@ function AddEmployeeModal({ show, handleClose, handleAddTask, task = null }) {
   );
 };
 
-AddEmployeeModal.propTypes = {
+AddTaskModal.propTypes = {
   show: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
   handleAddTask: PropTypes.func.isRequired,
@@ -127,4 +127,4 @@ AddEmployeeModal.propTypes = {
     }),
 };
 
-export default AddEmployeeModal;
+export default AddTaskModal;

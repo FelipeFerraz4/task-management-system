@@ -3,59 +3,70 @@ import { Button, InputGroup, Form } from "react-bootstrap";
 import EmployeeTable from "../EmployeeTable";
 import DeleteModal from "../DeleteModal";
 import FilterModal from "../FilterModal";
-import AddEmployeeModal from "../AddEmployeeModal"; // Importe o modal de adicionar/editar
+import AddEmployeeModal from "../AddEmployeeModal";
 import "./styles.css";
 
-const PageData = () => {
+function PageData() {
+
+  // Initialize state variables
   const [employees, setEmployees] = useState([
     { id: "1", name: "Julia", email: "julia@gmail.com", role: "employee" },
     { id: "2", name: "Carlos", email: "carlos@gmail.com", role: "manager" },
     { id: "3", name: "Ana", email: "ana@gmail.com", role: "admin" },
   ]);
 
+  // Modal and search-related states
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [showFilterModal, setShowFilterModal] = useState(false);
-  const [showAddEmployeeModal, setShowAddEmployeeModal] = useState(false); // Para controlar o modal de adicionar/editar funcionário
+  const [showAddEmployeeModal, setShowAddEmployeeModal] = useState(false);
   const [formData, setFormData] = useState({ id: "", name: "", email: "", role: "employee" });
   const [deleteConfirmText, setDeleteConfirmText] = useState("");
   const [selectedEmployees, setSelectedEmployees] = useState([]);
   const [filter, setFilter] = useState({ name: "", email: "", role: "" });
 
+  // Open delete modal and set the employee to be deleted
   const openDeleteModal = (employee) => {
     setFormData(employee);
     setShowDeleteModal(true);
   };
 
+  // Open edit modal to edit employee data
   const openEditModal = (employee) => {
     setFormData(employee);
     setShowAddEmployeeModal(true);
   }
 
+  // Close delete modal and reset confirmation text
   const closeDeleteModal = () => {
     setShowDeleteModal(false);
     setDeleteConfirmText("");
   };
 
+  // Handle employee deletion by filtering out the deleted employee
   const handleDelete = () => {
     setEmployees((prev) => prev.filter((emp) => emp.id !== formData.id));
     closeDeleteModal();
   };
 
+  // Handle checkbox change for selecting employees
   const handleCheckboxChange = (id) => {
     setSelectedEmployees((prev) => prev.includes(id) ? prev.filter((empId) => empId !== id) : [...prev, id]);
   };
 
+  // Select/deselect all employees
   const handleSelectAll = () => {
     setSelectedEmployees(selectedEmployees.length === employees.length ? [] : employees.map((e) => e.id));
   };
 
+  // Apply filters based on the form data
   const handleApplyFilter = (newFilter) => {
     setFilter(newFilter);
     setShowFilterModal(false);
   };
 
+  // Filter employees based on the applied filters
   const filteredEmployees = employees.filter((employee) => {
     return (
       (filter.name ? employee.name.toLowerCase().includes(filter.name.toLowerCase()) : true) &&
@@ -64,20 +75,20 @@ const PageData = () => {
     );
   });
 
+  // Handle adding a new employee or editing an existing one
   const handleAddEmployee = (newEmployee) => {
     if (newEmployee.id) {
-      // Editar um funcionário existente
       setEmployees(employees.map((emp) => (emp.id === newEmployee.id ? newEmployee : emp)));
     } else {
-      // Adicionar um novo funcionário
       setEmployees((prev) => [...prev, { ...newEmployee, id: Date.now().toString() }]);
     }
   };
 
+  // Handle search functionality based on search term
   const handleSearch = () => {
       if (!searchTerm.trim()) return;
   
-      // Filtra as tarefas com base no termo de pesquisa
+      // Search for employees matching the search term
       const foundEmployee = employees.filter((employee) => 
         employee.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         employee.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -87,7 +98,7 @@ const PageData = () => {
       setSearchResults(foundEmployee);
     };
   
-    // Atualizar `filteredTasks` sempre que o termo de busca ou o filtro mudar
+    // Update search results whenever the search term or employee data changes
     useEffect(() => {
       if (searchTerm.trim()) {
         const foundTasks = employees.filter((employee) => 
@@ -97,17 +108,18 @@ const PageData = () => {
         );
         setSearchResults(foundTasks);
       } else {
-        setSearchResults([]); // Limpa os resultados de pesquisa se não houver termo de busca
+        setSearchResults([]);
       }
     }, [searchTerm, employees]);
   
-    // Combina os resultados da pesquisa com os filtros aplicados
+    // Combine the search results with the applied filters
     const EmployeesToDisplay = searchResults.length > 0 ? searchResults : filteredEmployees;
 
   return (
     <div className="container">
       <h2>Gerenciamento de Funcionários</h2>
 
+      {/* Search and Filter Inputs */}
       <InputGroup className="inputGroup mb-3">
         <Form.Control 
           type="text" 
@@ -119,10 +131,12 @@ const PageData = () => {
         <Button variant="secondary" onClick={() => setShowFilterModal(true)}>Filtrar</Button>
       </InputGroup>
 
+      {/* Button to open Add Employee Modal */}
       <Button variant="primary" onClick={() => setShowAddEmployeeModal(true)} className="mb-3">
         Adicionar Funcionário
       </Button>
 
+      {/* Employee Table Component */}
       <EmployeeTable
         employees={EmployeesToDisplay}
         selectedEmployees={selectedEmployees}
@@ -132,6 +146,7 @@ const PageData = () => {
         openModal={openEditModal}
       />
 
+      {/* Delete Modal Component */}
       <DeleteModal
         show={showDeleteModal}
         closeDeleteModal={closeDeleteModal}
@@ -141,6 +156,7 @@ const PageData = () => {
         setDeleteConfirmText={setDeleteConfirmText}
       />
 
+      {/* Filter Modal Component */}
       <FilterModal
         show={showFilterModal}
         handleClose={() => setShowFilterModal(false)}
@@ -149,6 +165,7 @@ const PageData = () => {
         setFilter={setFilter}
       />
 
+      {/* Add/Edit Employee Modal Component */}
       <AddEmployeeModal
         show={showAddEmployeeModal}
         handleClose={() => setShowAddEmployeeModal(false)}
