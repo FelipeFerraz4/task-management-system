@@ -1,11 +1,9 @@
-/* Garante que a página ocupe toda a altura da tela */
 .page-not-found-container {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
 
-/* O conteúdo principal cresce e empurra o footer para baixo */
 .page-not-found {
   flex: 1;
   display: flex;
@@ -18,7 +16,6 @@
   padding: 20px;
 }
 
-/* Ajustes nos elementos internos */
 .page-not-found h1 {
   font-size: 6rem;
   font-weight: bold;
