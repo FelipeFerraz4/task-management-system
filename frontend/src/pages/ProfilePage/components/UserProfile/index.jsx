@@ -3,16 +3,23 @@ import { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import "./styles.css";
 
-const UserProfile = ({ user, handleUpdateProfile }) => {
+function UserProfile ({ user, handleUpdateProfile }) {
+
+  // State to manage form data, initialized with user details
   const [formData, setFormData] = useState({
     name: user.name,
     email: user.email,
     role: user.role,
     password: "",
   });
+
+   // State to control the confirmation modal visibility
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+
+  // State to store confirmation text input
   const [confirmText, setConfirmText] = useState("");
 
+  // Handles input changes and updates the formData state dynamically
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -21,10 +28,12 @@ const UserProfile = ({ user, handleUpdateProfile }) => {
     }));
   };
 
+  // Triggers when the "Update Profile" button is clicked, showing the confirmation modal
   const handleSubmit = () => {
     setShowConfirmModal(true);
   };
 
+  // Handles the final confirmation of profile update
   const handleConfirmUpdate = () => {
     if (confirmText === "ALTERAR") {
       handleUpdateProfile(formData);
@@ -35,7 +44,10 @@ const UserProfile = ({ user, handleUpdateProfile }) => {
 
   return (
     <div className="profile-container">
+      {/* title of Form */}
       <h2>Perfil do Usuário</h2>
+
+      {/* Profile Form */}
       <Form>
         <Form.Group className="mb-3">
           <Form.Label>Nome</Form.Label>
@@ -85,7 +97,7 @@ const UserProfile = ({ user, handleUpdateProfile }) => {
         </div>
       </Form>
 
-
+      {/* Confirmation Modal */}
       <Modal show={showConfirmModal} onHide={() => setShowConfirmModal(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Confirmar Alteração</Modal.Title>
@@ -102,6 +114,8 @@ const UserProfile = ({ user, handleUpdateProfile }) => {
           <Button variant="secondary" onClick={() => setShowConfirmModal(false)}>
             Cancelar
           </Button>
+
+          {/* Confirm Button (Disabled until user types "ALTERAR") */}
           <Button variant="primary" onClick={handleConfirmUpdate} disabled={confirmText !== "ALTERAR"}>
             Confirmar
           </Button>
