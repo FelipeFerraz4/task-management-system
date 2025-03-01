@@ -10,7 +10,7 @@ const navLinks = [
   { label: "Funcionalidades", href: "#features" },
 ];
 
-const user = { name: "João Silva" };
+// const user = { name: "João Silva" };
 
 const handleLogout = () => {
   console.log("Usuário deslogado");

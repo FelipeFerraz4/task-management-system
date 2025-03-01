@@ -5,7 +5,7 @@ const tasks = [
   { id: 1, title: "Revisar código", status: "Concluído", description: "Revisão do código para refatoração." },
   { id: 2, title: "Criar testes unitários", status: "Pendente", description: "Criar testes para garantir cobertura do código." },
   { id: 3, title: "Atualizar documentação", status: "Em andamento", description: "Documentação do novo módulo." },
-  { id: 3, title: "Atualizar documentação da calang.io", status: "Em andamento", description: "Documentação do novo módulo." },
+  { id: 4, title: "Atualizar documentação da WorkHub", status: "Em andamento", description: "Documentação do novo módulo." },
 ];
 
 const History = () => {
