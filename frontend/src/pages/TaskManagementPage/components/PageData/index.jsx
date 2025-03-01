@@ -6,7 +6,9 @@ import FilterModal from "../FilterModal";
 import AddTaskModal from "../AddTaskModal";
 import "./styles.css";
 
-const PageData = () => {
+function PageData() {
+
+  // State for managing tasks list
   const [tasks, setTasks] = useState([
     {
       id: "1",
@@ -50,6 +52,7 @@ const PageData = () => {
     }
   ]);
 
+  // States for managing modals and task interactions
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -74,41 +77,48 @@ const PageData = () => {
     responsible: ""
   });
 
+  // Function to open the delete modal and set the task data to be deleted
   const openDeleteModal = (tasks) => {
     setFormData(tasks);
     setShowDeleteModal(true);
   };
 
+  // Function to open the edit modal with selected task data
   const openEditModal = (tasks) => {
     setFormData(tasks);
     setShowAddTaskModal(true);
   };
 
+  // Close the delete modal
   const closeDeleteModal = () => {
     setShowDeleteModal(false);
     setDeleteConfirmText("");
   };
 
+  // Handle task deletion
   const handleDelete = () => {
     setTasks((prev) => prev.filter((task) => task.id !== formData.id));
     closeDeleteModal();
   };
 
+  // Handle checkbox selection for tasks
   const handleCheckboxChange = (id) => {
     setSelectedTasks((prev) => prev.includes(id) ? prev.filter((taskId) => taskId !== id) : [...prev, id]);
   };
 
+  // Handle selecting/deselecting all tasks
   const handleSelectAll = () => {
     setSelectedTasks(selectedTasks.length === tasks.length ? [] : tasks.map((e) => e.id));
   };
 
+  // Apply filter and close filter modal
   const handleApplyFilter = (newFilter) => {
     setFilter(newFilter);
     setShowFilterModal(false);
   };
 
+  // Filter tasks based on the applied filters
   const filteredTasks = tasks.filter((task) => {
-    // Aplica os filtros
     return (
       (filter.title ? task.title.toLowerCase().includes(filter.title.toLowerCase()) : true) &&
       (filter.description ? task.description.toLowerCase().includes(filter.description.toLowerCase()) : true) &&
@@ -118,6 +128,7 @@ const PageData = () => {
     );
   });
 
+  // Handle adding or updating a task
   const handleAddTask = (newTask) => {
     if (newTask.id) {
       setTasks(tasks.map((task) => (task.id === newTask.id ? newTask : task)));
@@ -126,10 +137,11 @@ const PageData = () => {
     }
   };
 
+  // Handle task search
   const handleSearch = () => {
     if (!searchTerm.trim()) return;
 
-    // Filtra as tarefas com base no termo de pesquisa
+    // Filter tasks based on the search term
     const foundTasks = tasks.filter((task) => 
       task.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       task.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -141,7 +153,7 @@ const PageData = () => {
     setSearchResults(foundTasks);
   };
 
-  // Atualizar `filteredTasks` sempre que o termo de busca ou o filtro mudar
+  // Update `searchResults` whenever the search term or tasks change
   useEffect(() => {
     if (searchTerm.trim()) {
       const foundTasks = tasks.filter((task) => 
@@ -157,7 +169,7 @@ const PageData = () => {
     }
   }, [searchTerm, tasks]);
 
-  // Combina os resultados da pesquisa com os filtros aplicados
+  // Combine search results with applied filters for final task list
   const tasksToDisplay = searchResults.length > 0 ? searchResults : filteredTasks;
 
   return (
@@ -179,6 +191,7 @@ const PageData = () => {
         Adicionar Tarefa
       </Button>
 
+      {/* Task Table displaying filtered or searched tasks */}
       <TaskTable
         tasks={tasksToDisplay}
         selectedTasks={selectedTasks}
@@ -188,6 +201,7 @@ const PageData = () => {
         openModal={openEditModal}
       />
 
+      {/* Delete Modal */}
       <DeleteModal
         show={showDeleteModal}
         closeDeleteModal={closeDeleteModal}
@@ -197,6 +211,7 @@ const PageData = () => {
         setDeleteConfirmText={setDeleteConfirmText}
       />
 
+      {/* Filter Modal */}
       <FilterModal
         show={showFilterModal}
         handleClose={() => setShowFilterModal(false)}
@@ -205,6 +220,7 @@ const PageData = () => {
         setFilter={setFilter}
       />
 
+      {/* Add Task Modal */}
       <AddTaskModal
         show={showAddTaskModal}
         handleClose={() => setShowAddTaskModal(false)}

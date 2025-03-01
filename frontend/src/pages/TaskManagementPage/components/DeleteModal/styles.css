@@ -17,7 +17,6 @@
   text-align: center;
 }
 
-/* Responsividade */
 @media (max-width: 768px) {
   .modal-content {
     width: 90%;

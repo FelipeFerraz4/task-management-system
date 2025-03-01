@@ -2,7 +2,10 @@ import { useState, useEffect } from "react";
 import { Modal, Button, Form, InputGroup } from "react-bootstrap";
 import PropTypes from "prop-types";
 
-const AddEmployeeModal = ({ show, handleClose, handleAddTask, task = null }) => {
+// AddEmployeeModal component to add or edit a task
+function AddEmployeeModal({ show, handleClose, handleAddTask, task = null }) {
+
+  // State to hold the form data for the task being added or edited
   const [formData, setFormData] = useState({
     "id": "",
     "title": "",
@@ -12,12 +15,14 @@ const AddEmployeeModal = ({ show, handleClose, handleAddTask, task = null }) => 
     "responsible": ""
   });
 
+  // useEffect to load the task data into the form if we are editing an existing task 
   useEffect(() => {
     if (task && task.id) {
       setFormData(task);
     }
   }, [task]);
 
+  // Handle changes in form input fields and update state
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -26,17 +31,22 @@ const AddEmployeeModal = ({ show, handleClose, handleAddTask, task = null }) => 
     }));
   };
 
+  // Handle form submission by calling the handleAddTask function and closing the modal
   const handleSubmit = () => {
     handleAddTask(formData);
     handleClose();
   };
 
   return (
+
+    // Modal component from React Bootstrap to display the form
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>{formData.id ? "Editar Tarefa" : "Adicionar Tarefa"}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
+
+        {/* Form to capture task details */}
         <Form>
           <InputGroup className="mb-3">
             <Form.Control
@@ -88,9 +98,13 @@ const AddEmployeeModal = ({ show, handleClose, handleAddTask, task = null }) => 
         </Form>
       </Modal.Body>
       <Modal.Footer>
+        
+        {/* Close button */}
         <Button variant="secondary" onClick={handleClose}>
           Fechar
         </Button>
+
+        {/* Submit button with dynamic label */}
         <Button variant="primary" onClick={handleSubmit}>
           {formData.id ? "Salvar Alterações" : "Adicionar"}
         </Button>

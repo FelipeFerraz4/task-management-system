@@ -2,7 +2,10 @@ import { Modal, Button, Form } from "react-bootstrap";
 import PropTypes from 'prop-types';
 import "./styles.css";
 
-const FilterModal = ({ show, handleClose, handleApplyFilter, filter, setFilter }) => {
+// FilterModal component for filtering data (tasks)
+function FilterModal({ show, handleClose, handleApplyFilter, filter, setFilter }) {
+
+  // Handle input change for the filter fields
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFilter((prevFilter) => ({
@@ -11,6 +14,7 @@ const FilterModal = ({ show, handleClose, handleApplyFilter, filter, setFilter }
     }));
   };
 
+  // Clear all filters by resetting the filter state to its initial values
   const handleClear = () => {
     setFilter({
     "id": "",
@@ -23,11 +27,15 @@ const FilterModal = ({ show, handleClose, handleApplyFilter, filter, setFilter }
   };
 
   return (
+
+    // Modal component from React-Bootstrap to display the filter options
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>Filtros de Pesquisa</Modal.Title>
       </Modal.Header>
       <Modal.Body>
+
+        {/* Form to filter tasks by various criteria */}
         <Form>
           <Form.Group controlId="filterTitle">
             <Form.Label>Título</Form.Label>
@@ -89,7 +97,11 @@ const FilterModal = ({ show, handleClose, handleApplyFilter, filter, setFilter }
         </Form>
       </Modal.Body>
       <Modal.Footer>
+
+        {/* Button to clear the filters */}
         <Button variant="secondary" onClick={handleClear}>Limpar</Button>
+
+        {/* Button to apply the filters */}
         <Button variant="primary" onClick={() => handleApplyFilter(filter)}>
           Aplicar Filtro
         </Button>

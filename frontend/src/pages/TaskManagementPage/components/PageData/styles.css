@@ -30,7 +30,6 @@ h2 {
   white-space: nowrap;
 }
 
-/* Responsividade */
 @media (max-width: 768px) {
   .container {
     padding: 10px;

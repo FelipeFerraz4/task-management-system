@@ -4,12 +4,17 @@ import deleteIcon from "../../../../assets/bin.png";
 import PropTypes from "prop-types";
 import "./styles.css";
 
+// TaskTable Component - Displays a list of tasks in a table format (desktop) and a card format (mobile)
 function TaskTable ({ tasks, selectedTasks, handleCheckboxChange, handleSelectAll, openModal, openDeleteModal }) {
   return (
     <div className="table-container">
+
+      {/* Desktop Version of the Table */}
       <Table striped bordered hover className="table d-none d-md-table">
         <thead>
           <tr>
+
+            {/* Checkbox for selecting all tasks */}
             <th className="text-center">
               <Form.Check
                 type="checkbox"
@@ -27,9 +32,13 @@ function TaskTable ({ tasks, selectedTasks, handleCheckboxChange, handleSelectAl
           </tr>
         </thead>
         <tbody>
+
+          {/* Mapping through tasks to render each row */}
           {tasks.map((task) => (
             <tr key={task.id}>
               <td className="text-center">
+
+                {/* Checkbox to select individual tasks */}
                 <Form.Check
                   type="checkbox"
                   checked={selectedTasks.includes(task.id)}
@@ -43,6 +52,8 @@ function TaskTable ({ tasks, selectedTasks, handleCheckboxChange, handleSelectAl
               <td className="text-center">{task.due_date}</td>
               <td className="text-center">{task.responsible}</td>
               <td className="text-center">
+
+                {/* Edit and Delete action buttons */}
                 <button className="icon-btn" onClick={() => openModal(task)}>
                   <img src={editIcon} alt="Editar" className="icon" />
                 </button>
@@ -55,7 +66,10 @@ function TaskTable ({ tasks, selectedTasks, handleCheckboxChange, handleSelectAl
         </tbody>
       </Table>
 
+      {/* Mobile Version (Displays as Cards) */}
       <div className="mobile-table d-md-none">
+
+        {/* Select All Checkbox for mobile */}
         <div className="mobile-select-all">
           <Form.Check
             type="checkbox"
@@ -65,6 +79,7 @@ function TaskTable ({ tasks, selectedTasks, handleCheckboxChange, handleSelectAl
           />
         </div>
 
+        {/* Rendering tasks as individual cards for mobile */}
         {tasks.map((task) => (
           <div key={task.id} className="mobile-card">
             <div className="mobile-checkbox">
@@ -79,6 +94,8 @@ function TaskTable ({ tasks, selectedTasks, handleCheckboxChange, handleSelectAl
             <p><strong>Status:</strong> {task.status}</p>
             <p><strong>Data de vencimento:</strong> {task.due_date}</p>
             <p><strong>Responsável:</strong> {task.responsible}</p>
+            
+            {/* Edit and Delete action buttons */}
             <div className="mobile-actions">
               <button className="icon-btn" onClick={() => openModal(task)}>
                 <img src={editIcon} alt="Editar" className="icon" />
