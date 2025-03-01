@@ -5,13 +5,10 @@ import "./styles.css";
 
 const navLinks = [
   { label: "Início", href: "/" },
-  { label: "Sobre", href: "#about" },
-  { label: "Funcionalidades", href: "#features" },
 ];
 
 const handleLogout = () => {
   console.log("Usuário deslogado");
-  // Adicione a lógica de logout aqui
 };
 
 function Login() {

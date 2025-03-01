@@ -1,17 +1,16 @@
 html {
-  scroll-padding-top: 80px; /* Ajuste conforme a altura do seu Header */
+  scroll-padding-top: 80px;
 }
 .custom-header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  background-color: #ffffff; /* Garante que ele não fique transparente */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra sutil */
-  z-index: 1000; /* Mantém o Header sempre acima dos outros elementos */
+  background-color: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000; 
 }
 
-/* Estilização do Navbar */
 .navbar {
   padding: 10px 20px;
 }
@@ -33,7 +32,6 @@ html {
   height: 30px;
 }
 
-/* Botão de Login */
 .header-login-btn {
   background-color: #007bff;
   color: white;
@@ -49,7 +47,6 @@ html {
   color: white;
 }
 
-/* Dropdown do usuário */
 .header-user-dropdown {
   background-color: transparent !important;
   border: none;
@@ -63,7 +60,6 @@ html {
   box-shadow: none !important;
 }
 
-/* Estilo do dropdown */
 .dropdown-menu {
   min-width: 150px;
   border-radius: 8px;
@@ -78,7 +74,6 @@ html {
   background-color: #f8f9fa;
 }
 
-/* Offcanvas Menu */
 .offcanvas {
   width: 250px !important;
   background-color: #f8f9fa;
@@ -100,7 +95,6 @@ html {
   height: 24px;
 }
 
-/* Links do Offcanvas */
 .offcanvas .nav-link {
   font-size: 16px;
   font-weight: bold;
@@ -117,7 +111,6 @@ html {
   display: block;
 }
 
-/* Responsividade */
 @media (max-width: 768px) {
   .header-login-btn {
     width: 100%;

@@ -1,12 +1,11 @@
-/* Faz a página ocupar 100% da tela */
 .login-page {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    overflow: hidden; /* Evita scroll */
+    overflow: hidden;
+    padding-top: 110px;
 }
 
-/* Faz o conteúdo ocupar todo o espaço disponível entre header e footer */
 .login-content {
     flex-grow: 1;
     display: flex;
@@ -15,7 +14,6 @@
     width: 100%;
 }
 
-/* Garante que o Header e Footer fiquem fixos */
 header, footer {
     flex-shrink: 0;
     width: 100%;

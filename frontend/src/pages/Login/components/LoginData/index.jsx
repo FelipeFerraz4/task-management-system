@@ -18,12 +18,12 @@ function LoginData() {
   return (
     <Container fluid className="login-container">
       <Row className="login-content">
-        {/* Carrossel (Esquerda no Desktop, Fundo no Mobile) */}
+         {/* Carousel on the left side on desktop, background on mobile */}
         <Col md={6} className="carousel-container">
           <CarouselComponent />
         </Col>
 
-        {/* Formulário de Login */}
+        {/* Login Form */}
         <Col md={6} className="login-form-container">
           <div className="login-box">
             <h2>Bem-vindo de volta!</h2>

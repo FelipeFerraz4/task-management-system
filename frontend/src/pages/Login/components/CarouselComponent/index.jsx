@@ -6,7 +6,9 @@ import "./styles.css";
 
 function CarouselComponent () {
   return (
+    // Carousel component with multiple items
     <Carousel className="custom-carousel">
+      {/* First carousel item */}
       <Carousel.Item>
         <img className="d-block w-100" src={Image1} alt="Slide 1" />
         <Carousel.Caption>
@@ -15,6 +17,7 @@ function CarouselComponent () {
         </Carousel.Caption>
       </Carousel.Item>
 
+      {/* Second carousel item */}
       <Carousel.Item>
         <img className="d-block w-100" src={Image2} alt="Slide 2" />
         <Carousel.Caption>
@@ -23,6 +26,7 @@ function CarouselComponent () {
         </Carousel.Caption>
       </Carousel.Item>
 
+      {/* Third carousel item */}
       <Carousel.Item>
         <img className="d-block w-100" src={Image3} alt="Slide 3" />
         <Carousel.Caption>
