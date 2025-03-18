@@ -31,6 +31,10 @@
             {
                 "argsIgnorePattern": "req|res|next|val"
             }
+        ],
+        "linebreak-style": [
+            "error",
+            "unix"
         ]
     }
 }
