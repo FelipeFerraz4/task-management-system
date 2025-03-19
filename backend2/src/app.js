@@ -1,5 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
+const taskRouter = require('./routes/taskRoutes');
 
 // const tourRouter = require("./routes/tourRoutes");
 // const userRouter = require("./routes/userRoutes");
@@ -24,9 +25,11 @@ app.use((req, res, next) => {
   next();
 });
 
+// 2) ROUTES
 app.get('/', (req, res) => {
   res.send('Server is running!');
 });
+app.use('/api/v1/tasks', taskRouter);
 
 // app.get('/api/config', (req, res) => {
 //   res.json({
