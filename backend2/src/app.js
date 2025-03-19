@@ -1,6 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const taskRouter = require('./routes/taskRoutes');
+const globalErrorHandler = require('./controllers/errorController');
 
 // const tourRouter = require("./routes/tourRoutes");
 // const userRouter = require("./routes/userRoutes");
@@ -30,6 +31,13 @@ app.get('/', (req, res) => {
   res.send('Server is running!');
 });
 app.use('/api/v1/tasks', taskRouter);
+
+app.all('*', (req, res, next) => {
+  next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
+});
+
+app.use(globalErrorHandler);
+
 
 // app.get('/api/config', (req, res) => {
 //   res.json({
