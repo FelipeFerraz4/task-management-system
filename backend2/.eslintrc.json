@@ -32,9 +32,6 @@
                 "argsIgnorePattern": "req|res|next|val"
             }
         ],
-        "linebreak-style": [
-            "error",
-            "unix"
-        ]
+        "linebreak-style": 0
     }
 }
