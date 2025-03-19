@@ -35,3 +35,45 @@ exports.getTask = catchAsync(async (req, res, next) => {
     },
   });
 });
+
+exports.createTask = catchAsync(async (req, res, next) => {
+  const newtask = await Task.create(req.body);
+
+  res.status(201).json({
+    status: 'sucess',
+    data: {
+      task: newtask,
+    },
+  });
+});
+
+exports.updateTask = catchAsync(async (req, res, next) => {
+  const task = await Task.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+  });
+
+  if (!task) {
+    next(new AppError('No task found with that ID', 404));
+  }
+
+  res.status(0).json({
+    status: 'sucess',
+    data: {
+      task,
+    },
+  });
+});
+
+exports.deleteTask = catchAsync(async (req, res, next) => {
+  const task = await Task.findByIdAndDelete(req.params.id);
+
+  if (!task) {
+    next(new AppError('No task found with that ID', 404));
+  }
+
+  res.status(0).json({
+    status: 'sucess',
+    data: null,
+  });
+});
