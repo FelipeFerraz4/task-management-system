@@ -1,18 +1,17 @@
 const express = require('express');
 const morgan = require('morgan');
 const taskRouter = require('./routes/taskRoutes');
+const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
-
-// const tourRouter = require("./routes/tourRoutes");
-// const userRouter = require("./routes/userRoutes");
 
 const app = express();
 
-// 1) MIDDLEWARES
+// 1) DEVELOPMENT LOGGING
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
+// 2) MIDDLEWARES
 app.use(express.json());
 app.use(express.static(`${__dirname}/public`));
 
@@ -26,7 +25,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// 2) ROUTES
+// 3) ROUTES
 app.get('/', (req, res) => {
   res.send('Server is running!');
 });
@@ -37,20 +36,5 @@ app.all('*', (req, res, next) => {
 });
 
 app.use(globalErrorHandler);
-
-
-// app.get('/api/config', (req, res) => {
-//   res.json({
-//     port: process.env.PORT,
-//     environment: process.env.NODE_ENV,
-//     database: process.env.MONGODB_WORKHUB_URL || process.env.DATABASE,
-//     password:
-//       process.env.MONGODB_WORKHUB_PASSWORD || process.env.DATABASE_PASSWORD,
-//   });
-// });
-
-// 3) ROUTES
-// app.use("/api/v1/tours", tourRouter);
-// app.use("/api/v1/users", userRouter);
 
 module.exports = app;
