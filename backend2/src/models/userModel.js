@@ -52,8 +52,9 @@ userSchema.pre('save', async function (next) {
   // Only run this function if password was actually modified
   if (!this.isModified('password')) return next();
 
+  const saltRounds = parseInt(process.env.BCRYPT_SALT, 10) || 12;
   // Hash the password with cost of 12
-  this.password = await bcrypt.hash(this.password, process.env.BCRYPT_SALT);
+  this.password = await bcrypt.hash(this.password, saltRounds);
 
   // Delete passwordConfirm field
   this.passwordConfirm = undefined;
@@ -77,7 +78,11 @@ userSchema.methods.correctPassword = async function (
   candidatePassword,
   userPassword,
 ) {
-  return await bcrypt.compare(candidatePassword, userPassword);
+  try {
+    return await bcrypt.compare(candidatePassword, userPassword);
+  } catch (err) {
+    return false;
+  }
 };
 
 userSchema.methods.changedPasswordAfter = function (JWTTimestamp) {

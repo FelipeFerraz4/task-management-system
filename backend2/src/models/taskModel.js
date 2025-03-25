@@ -26,7 +26,7 @@ const taskSchema = new mongoose.Schema(
       },
       default: 'pending',
     },
-    due_date: {
+    dueDate: {
       type: Date,
       required: [true, 'A task must have a due date'],
       validate: {
@@ -36,11 +36,11 @@ const taskSchema = new mongoose.Schema(
         message: 'Due date must be in the future',
       },
     },
-    start_date: {
+    startDate: {
       type: Date,
       default: Date.now,
     },
-    last_modified_date: {
+    lastModifiedDate: {
       type: Date,
       default: Date.now,
     },
@@ -74,7 +74,7 @@ taskSchema.virtual('statusText').get(function () {
 // DOCUMENT MIDDLEWARE: runs before .save() and .create()
 taskSchema.pre('save', function (next) {
   this.slug = slugify(this.title, { lower: true });
-  this.last_modified_date = Date.now();
+  this.lastModifiedDate = Date.now();
   next();
 });
 

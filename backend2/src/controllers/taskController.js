@@ -57,7 +57,7 @@ exports.updateTask = catchAsync(async (req, res, next) => {
     next(new AppError('No task found with that ID', 404));
   }
 
-  res.status(0).json({
+  res.status(200).json({
     status: 'sucess',
     data: {
       task,
@@ -72,8 +72,8 @@ exports.deleteTask = catchAsync(async (req, res, next) => {
     next(new AppError('No task found with that ID', 404));
   }
 
-  res.status(0).json({
-    status: 'sucess',
+  res.status(204).json({
+    status: 'success',
     data: null,
   });
 });
