@@ -1,7 +1,7 @@
 const catchAsync = require('../utils/catchAsync');
 const APIFeatures = require('../utils/apiFeatures');
 const AppError = require('../utils/appError');
-const Task = require('../models/task');
+const Task = require('../models/taskModel');
 
 exports.getAllTasks = catchAsync(async (req, res, next) => {
   const features = new APIFeatures(Task.find(), req.query)
