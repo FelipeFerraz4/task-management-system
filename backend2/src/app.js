@@ -5,6 +5,7 @@ const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
+const cors = require('cors');
 
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
@@ -21,6 +22,15 @@ app.use(helmet());
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
+
+// Habilitar CORS antes de definir as rotas
+app.use(
+  cors({
+    origin: 'http://localhost:5173', // Substitua pelo domínio em produção se necessário
+    methods: ['GET', 'POST', 'PATCH', 'DELETE'], // Métodos HTTP permitidos
+    allowedHeaders: ['Content-Type', 'Authorization'], // Cabeçalhos permitidos
+  }),
+);
 
 // Limit requests from same API
 const limiter = rateLimit({

@@ -4,53 +4,70 @@ import TaskTable from "../TaskTable";
 import DeleteModal from "../DeleteModal";
 import FilterModal from "../FilterModal";
 import AddTaskModal from "../AddTaskModal";
+import { getTasks } from "../../../../services/taskService";
 import "./styles.css";
 
 function PageData() {
 
   // State for managing tasks list
-  const [tasks, setTasks] = useState([
-    {
-      id: "1",
-      title: "Revisar documentação do projeto",
-      description: "Ler e corrigir a documentação técnica do sistema.",
-      status: "pending",
-      due_date: "2025-03-01",
-      responsible: "João Silva"
-    },
-    {
-      id: "2",
-      title: "Desenvolver página de login",
-      description: "Criar a tela de login com integração ao Keycloak.",
-      status: "in-progress",
-      due_date: "2025-02-25",
-      responsible: "Maria Oliveira"
-    },
-    {
-      id: "3",
-      title: "Configurar ambiente de produção",
-      description: "Ajustar o Docker e Nginx para o ambiente final.",
-      status: "pending",
-      due_date: "2025-03-05",
-      responsible: "Carlos Souza"
-    },
-    {
-      id: "4",
-      title: "Testar integração com API externa",
-      description: "Garantir que os endpoints externos estão funcionando corretamente.",
-      status: "completed",
-      due_date: "2025-02-20",
-      responsible: "Ana Lima"
-    },
-    {
-      id: "5",
-      title: "Criar relatório de progresso",
-      description: "Gerar um relatório com o status das tarefas concluídas.",
-      status: "in-progress",
-      due_date: "2025-03-10",
-      responsible: "Lucas Mendes"
-    }
-  ]);
+  // const [tasks, setTasks] = useState([
+  //   {
+  //     id: "1",
+  //     title: "Revisar documentação do projeto",
+  //     description: "Ler e corrigir a documentação técnica do sistema.",
+  //     status: "pending",
+  //     due_date: "2025-03-01",
+  //     responsible: "João Silva"
+  //   },
+  //   {
+  //     id: "2",
+  //     title: "Desenvolver página de login",
+  //     description: "Criar a tela de login com integração ao Keycloak.",
+  //     status: "in-progress",
+  //     due_date: "2025-02-25",
+  //     responsible: "Maria Oliveira"
+  //   },
+  //   {
+  //     id: "3",
+  //     title: "Configurar ambiente de produção",
+  //     description: "Ajustar o Docker e Nginx para o ambiente final.",
+  //     status: "pending",
+  //     due_date: "2025-03-05",
+  //     responsible: "Carlos Souza"
+  //   },
+  //   {
+  //     id: "4",
+  //     title: "Testar integração com API externa",
+  //     description: "Garantir que os endpoints externos estão funcionando corretamente.",
+  //     status: "completed",
+  //     due_date: "2025-02-20",
+  //     responsible: "Ana Lima"
+  //   },
+  //   {
+  //     id: "5",
+  //     title: "Criar relatório de progresso",
+  //     description: "Gerar um relatório com o status das tarefas concluídas.",
+  //     status: "in-progress",
+  //     due_date: "2025-03-10",
+  //     responsible: "Lucas Mendes"
+  //   }
+  // ]);
+  const [tasks, setTasks] = useState([])
+
+  useEffect(() => {
+    const fetchTasks = async () => {
+      try {
+        const data = await getTasks();
+        setTasks(data);
+        console.log(data);
+      } catch (error) {
+        console.error("Erro ao carregar as tarefas:", error);
+      }
+    };
+
+    fetchTasks(); // Chama a função para carregar as tarefas
+  }, []);
+
 
   // States for managing modals and task interactions
   const [showDeleteModal, setShowDeleteModal] = useState(false);
