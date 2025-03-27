@@ -1,33 +1,44 @@
-import { useState } from "react";
-import { Form, Button, Container, Row, Col } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
-import CarouselComponent from "../CarouselComponent";
-import "./styles.css";
+import { useState } from 'react';
+import { Form, Button, Container, Row, Col } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import CarouselComponent from '../CarouselComponent';
+import authService from '../../../../services/authService';
+import './styles.css';
 
 function LoginData() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Login:", email, password);
-    navigate("/home");
+    setError('');
+
+    try {
+      const data = await authService.login(email, password);
+      console.log('Login bem-sucedido:', data);
+      
+      // Redireciona após login bem-sucedido
+      navigate('/home');
+    } catch (err) {
+      console.error('Erro ao fazer login:', err.response?.data?.message || err.message);
+      setError(err.response?.data?.message || 'Erro ao fazer login');
+    }
   };
 
   return (
     <Container fluid className="login-container">
       <Row className="login-content">
-         {/* Carousel on the left side on desktop, background on mobile */}
         <Col md={6} className="carousel-container">
           <CarouselComponent />
         </Col>
 
-        {/* Login Form */}
         <Col md={6} className="login-form-container">
           <div className="login-box">
             <h2>Bem-vindo de volta!</h2>
             <p>Faça login para acessar sua conta.</p>
+            {error && <p className="text-danger">{error}</p>}
             <Form onSubmit={handleSubmit}>
               <Form.Group className="mb-3" controlId="formEmail">
                 <Form.Label>Email</Form.Label>

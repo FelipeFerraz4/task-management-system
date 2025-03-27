@@ -29,6 +29,7 @@ app.use(
     origin: 'http://localhost:5173', // Substitua pelo domínio em produção se necessário
     methods: ['GET', 'POST', 'PATCH', 'DELETE'], // Métodos HTTP permitidos
     allowedHeaders: ['Content-Type', 'Authorization'], // Cabeçalhos permitidos
+    credentials: true,
   }),
 );
 
