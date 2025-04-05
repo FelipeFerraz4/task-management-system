@@ -29,7 +29,7 @@ function EmployeeManagement() {
 
   return (
     <div className="base_page">
-      <Header user={user} />
+      <Header user={{ name: user.name }} />
         <div className="page-content d-flex">
           <History />
         </div>

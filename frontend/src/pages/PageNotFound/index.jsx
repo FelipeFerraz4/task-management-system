@@ -4,25 +4,33 @@ import Logo from "../../assets/LogoFoxBlue.png";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import './styles.css';
-
-const navLinks = [
-  { label: "Início", href: "/" },
-  // { label: "Sobre", href: "#about" },
-  // { label: "Funcionalidades", href: "#features" },
-];
-
-// const user = { name: "João Silva" };
-
-// Logout function placeholder
-const handleLogout = () => {
-  console.log("Usuário deslogado");
-};
+import { useEffect, useState } from "react";
+import getMe from "../../services/userService";
 
 function PageNotFound() {
   const navigate = useNavigate();
+
+    const [user, setUser] = useState(null);
+    
+      useEffect(() => {
+        const fetchUser = async () => {
+          try {
+            const res = await getMe();
+            setUser(res.data.user); // depende de como está estruturado o JSON
+          } catch (err) {
+            console.error("Erro ao buscar usuário:", err);
+            navigate("/login"); // redireciona se não estiver autenticado
+          }
+        };
+    
+        fetchUser();
+      }, [navigate]);
+    
+      if (!user) return <div>Carregando...</div>;
+
   return (
     <div className="page-not-found-container">
-      <Header navLinks={navLinks} onLogout={handleLogout} />
+      <Header user={{ name: user.name }} />
 
       {/* Main content container for the "Page Not Found" message */}
       <Container className="page-not-found">

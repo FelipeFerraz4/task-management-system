@@ -25,12 +25,11 @@ function EmployeeManagement() {
       fetchUser();
     }, [navigate]);
   
-    // Evita renderizar enquanto o usuário não foi carregado
     if (!user) return <div>Carregando...</div>;
 
   return (
     <div className="base_page">
-      <Header user={user} />
+      <Header user={{ name: user.name }} />
         <div className="page-content d-flex">
           <Dashboard />
         </div>
