@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import CarouselComponent from '../CarouselComponent';
-import authService from '../../../../services/authService';
+import login from '../../../../services/authService';
 import './styles.css';
 
 function LoginData() {
@@ -16,7 +16,7 @@ function LoginData() {
     setError('');
 
     try {
-      const data = await authService.login(email, password);
+      const data = await login(email, password);
       console.log('Login bem-sucedido:', data);
       
       // Redireciona após login bem-sucedido
