@@ -1,70 +1,79 @@
-// Handles operations related to task management, such as retrieving, creating, updating, and deleting tasks.
-import Task from '../models/Task.js';
+const catchAsync = require('../utils/catchAsync');
+const APIFeatures = require('../utils/apiFeatures');
+const AppError = require('../utils/appError');
+const Task = require('../models/taskModel');
 
-// Retrieves all tasks associated with the currently authenticated user.
-export const getAllTasks = async (req, res) => {
-    try {
-        const tasks = await Task.findAll({ where: { userId: req.user.id } });
-        res.status(200).json(tasks);
-    } catch (error) {
-        res.status(500).json({ message: 'Erro ao buscar tarefas', error: error.message });
-    }
-};
+exports.getAllTasks = catchAsync(async (req, res, next) => {
+  const features = new APIFeatures(Task.find(), req.query)
+    .filter()
+    .sort()
+    .limitFields()
+    .paginate();
 
-// Retrieves a specific task by its ID, ensuring it belongs to the currently authenticated user.
-export const getTaskById = async (req, res) => {
-    const { id } = req.params;
-    try {
-        const task = await Task.findByPk(id);
+  const tasks = await features.query;
 
-        if (!task || task.userId !== req.user.id) {
-            return res.status(404).json({ message: 'Tarefa não encontrada' });
-        }
-        res.status(200).json(task);
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({ message: 'Erro ao buscar tarefa', error: error.message });
-    }
-};
+  res.status(200).json({
+    status: 'sucess',
+    results: tasks.lenght,
+    data: {
+      tasks,
+    },
+  });
+});
 
-// Creates a new task associated with the currently authenticated user.
-export const createTask = async (req, res) => {
-    const { title, description, dueDate } = req.body;
-    try {
-        const task = await Task.create({ title, description, dueDate, userId: req.user.id });
-        res.status(201).json(task);
-    } catch (error) {
-        res.status(400).json({ message: 'Erro ao criar tarefa', error: error.message });
-    }
-};
+exports.getTask = catchAsync(async (req, res, next) => {
+  const task = await Task.findById(req.params.id);
 
-// Updates an existing task by its ID, ensuring it belongs to the currently authenticated user.
-export const updateTask = async (req, res) => {
-    const { id } = req.params;
-    const { title, description, status, dueDate } = req.body;
-    try {
-        const task = await Task.findByPk(id);
-        if (!task || task.userId !== req.user.id) {
-            return res.status(404).json({ message: 'Tarefa não encontrada' });
-        }
-        await task.update({ title, description, status, dueDate });
-        res.status(200).json(task);
-    } catch (error) {
-        res.status(400).json({ message: 'Erro ao atualizar tarefa', error: error.message });
-    }
-};
+  if (!task) {
+    return next(new AppError('No task found with that ID', 404));
+  }
 
-// Deletes a specific task by its ID, ensuring it belongs to the currently authenticated user.
-export const deleteTask = async (req, res) => {
-    const { id } = req.params;
-    try {
-        const task = await Task.findByPk(id);
-        if (!task || task.userId !== req.user.id) {
-            return res.status(404).json({ message: 'Tarefa não encontrada' });
-        }
-        await task.destroy();
-        res.status(200).json({ message: 'Tarefa deletada' });
-    } catch (error) {
-        res.status(500).json({ message: 'Erro ao deletar tarefa', error: error.message });
-    }
-};
+  res.status(200).json({
+    status: 'sucess',
+    data: {
+      task,
+    },
+  });
+});
+
+exports.createTask = catchAsync(async (req, res, next) => {
+  const newtask = await Task.create(req.body);
+
+  res.status(201).json({
+    status: 'sucess',
+    data: {
+      task: newtask,
+    },
+  });
+});
+
+exports.updateTask = catchAsync(async (req, res, next) => {
+  const task = await Task.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+  });
+
+  if (!task) {
+    next(new AppError('No task found with that ID', 404));
+  }
+
+  res.status(200).json({
+    status: 'sucess',
+    data: {
+      task,
+    },
+  });
+});
+
+exports.deleteTask = catchAsync(async (req, res, next) => {
+  const task = await Task.findByIdAndDelete(req.params.id);
+
+  if (!task) {
+    next(new AppError('No task found with that ID', 404));
+  }
+
+  res.status(204).json({
+    status: 'success',
+    data: null,
+  });
+});

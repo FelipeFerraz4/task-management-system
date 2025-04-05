@@ -1,21 +1,18 @@
-import { initializeDatabase } from './config/database.js'; // Função para inicializar o banco
-import App from './App.js'; // Import the App class
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
 
-const app = new App().app;
+dotenv.config({ path: './config.env' });
+const app = require('./app');
 
-const startServer = async () => {
-  try {
-    // Inicializa o banco de dados antes de iniciar o servidor
-    await initializeDatabase();
+const DB_URL = process.env.MONGODB_WORKHUB_URL || process.env.DATABASE;
+const PASSWORD =
+  process.env.MONGODB_WORKHUB_PASSWORD || process.env.DATABASE_PASSWORD;
 
-    const PORT = process.env.PORT || 2000;
-    app.listen(PORT, () => {
-      console.log(`Server is running on http://localhost:${PORT}`);
-    });
-  } catch (error) {
-    console.error('Failed to start the server:', error);
-    process.exit(1);
-  }
-};
+const DB = DB_URL.replace('<db_password>', PASSWORD);
 
-startServer();
+mongoose.connect(DB, {}).then(() => console.log('DB connection successful!'));
+
+const port = process.env.PORT || 5000;
+app.listen(port, () => {
+  console.log(`App running on port ${port}...`);
+});
