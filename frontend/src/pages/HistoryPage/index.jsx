@@ -3,23 +3,33 @@ import Footer from "../../components/Footer";
 import { useNavigate } from "react-router-dom";
 import "./styles.css";
 import History from "./components/History";
-
-const navLinks = [{ label: "Home", href: "/home" }];
-
-const user = { name: "João Silva" };
+import { useEffect, useState } from "react";
+import getMe from "../../services/userService";
 
 function EmployeeManagement() {
   const navigate = useNavigate();
 
-  const handleLogout = (e) => {
-    e.preventDefault();
-    console.log("Usuário deslogado");
-    navigate("/login");
-  };
+    const [user, setUser] = useState(null);
+    
+      useEffect(() => {
+        const fetchUser = async () => {
+          try {
+            const res = await getMe();
+            setUser(res.data.user); // depende de como está estruturado o JSON
+          } catch (err) {
+            console.error("Erro ao buscar usuário:", err);
+            navigate("/login"); // redireciona se não estiver autenticado
+          }
+        };
+    
+        fetchUser();
+      }, [navigate]);
+    
+      if (!user) return <div>Carregando...</div>;
 
   return (
     <div className="base_page">
-      <Header navLinks={navLinks} user={user} onLogout={handleLogout} />
+      <Header user={user} />
         <div className="page-content d-flex">
           <History />
         </div>
