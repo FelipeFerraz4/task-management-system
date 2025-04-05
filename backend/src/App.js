@@ -6,6 +6,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
@@ -63,6 +64,8 @@ app.use(
     ],
   }),
 );
+
+app.use(cookieParser());
 
 // Test middleware
 app.use((req, res, next) => {
