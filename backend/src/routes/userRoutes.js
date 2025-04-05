@@ -7,8 +7,8 @@ const router = express.Router();
 router.post('/signup', authController.signup);
 router.post('/login', authController.login);
 
-router.post('/forgotPassword', authController.forgotPassword);
-router.patch('/resetPassword/:token', authController.resetPassword);
+router.post('/forgotpassword', authController.forgotPassword);
+router.patch('/resetpassword/:token', authController.resetPassword);
 
 router.patch(
   '/updateMyPassword',
@@ -16,8 +16,11 @@ router.patch(
   authController.updatePassword,
 );
 
-router.patch('/updateMe', authController.protect, userController.updateMe);
-router.delete('/deleteMe', authController.protect, userController.deleteMe);
+router
+  .route('/me')
+  .get(authController.protect, userController.getMe)
+  .patch(authController.protect, userController.updateMe)
+  .delete(authController.protect, userController.deleteMe);
 
 router
   .route('/')
