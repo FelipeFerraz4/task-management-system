@@ -4,9 +4,7 @@ import { useNavigate } from "react-router-dom";
 import UserProfile from "./components/UserProfile";
 import "./styles.css";
 import { useEffect, useState } from "react";
-import getMe from "../../services/userService";
-
-const userTest = { id: "1", name: "Julia", email: "julia@gmail.com", role: "employee" };
+import userService from "../../services/userService";
 
 function ProfilePage() {
   const navigate = useNavigate();
@@ -16,7 +14,7 @@ function ProfilePage() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await getMe();
+        const res = await userService.getMe();
         setUser(res.data.user); // depende de como está estruturado o JSON
       } catch (err) {
         console.error("Erro ao buscar usuário:", err);
@@ -29,17 +27,11 @@ function ProfilePage() {
 
   if (!user) return <div>Carregando...</div>;
 
-  const handleUpdateProfile = (formData) => {
-    userTest.name = formData.name;
-    userTest.email = formData.email;
-    userTest.role = formData.role;
-  }
-
   return (
     <div className="base_page">
       <Header user={{ name: user.name }} />
         <div className="page-content d-flex">
-          <UserProfile user={userTest} handleUpdateProfile={handleUpdateProfile}/>
+          <UserProfile user={user}/>
         </div>
         <Footer />
     </div>

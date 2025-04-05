@@ -5,7 +5,7 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import './styles.css';
 import { useEffect, useState } from "react";
-import getMe from "../../services/userService";
+import userService from "../../services/userService";
 
 function PageNotFound() {
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ function PageNotFound() {
     useEffect(() => {
       const fetchUser = async () => {
         try {
-          const res = await getMe();
+          const res = await userService.getMe();
           setUser(res.data.user); // depende de como está estruturado o JSON
         } catch (err) {
           console.error("Erro ao buscar usuário:", err);
