@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Header from "../../components/HeaderAfterLogin";
+import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import PageData from "./components/PageData";
 import getMe from "../../services/userService";
 import "./styles.css";
-
-const navLinks = [{ label: "Home", href: "/home" }];
 
 function HomeAfterLogin() {
   const navigate = useNavigate();
@@ -26,18 +24,12 @@ function HomeAfterLogin() {
     fetchUser();
   }, [navigate]);
 
-  const handleLogout = (e) => {
-    e.preventDefault();
-    console.log("Usuário deslogado");
-    navigate("/login");
-  };
-
   // Evita renderizar enquanto o usuário não foi carregado
   if (!user) return <div>Carregando...</div>;
 
   return (
     <div className="base_page">
-      <Header navLinks={navLinks} user={user} onLogout={handleLogout} />
+      <Header user={{ name: user.name }} />
       <div className="page-content d-flex">
         <PageData />
       </div>

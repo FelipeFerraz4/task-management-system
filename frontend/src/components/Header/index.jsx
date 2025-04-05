@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Navbar, Nav, Container, Offcanvas, Dropdown } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import logo from "../../assets/LogoFoxBlue.png";
 import MenuIcon from "../../assets/menu.png";
@@ -7,7 +8,21 @@ import PropTypes from "prop-types";
 import RightArrow from "../../assets/right_arrow.png";
 import "./styles.css";
 
-function Header ({ navLinks, user, onLogout }) {
+function Header ({ user }) {
+
+   let navLinks = user ? [{ label: "Home", href: "/home" }] : [
+        { label: "Início", href: "/#start" },
+        { label: "Sobre", href: "/#about" },
+        { label: "Funcionalidades", href: "/#features" },
+      ];
+
+  const navigate = useNavigate();
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+    // console.log("Usuário deslogado");
+    navigate("/login");
+  };
   const [menuOpen, setMenuOpen] = useState(false);
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 768);
 
@@ -67,7 +82,7 @@ function Header ({ navLinks, user, onLogout }) {
                   <Dropdown.Item as={Link} to="/profile">Perfil</Dropdown.Item>
                   {/* <Dropdown.Item as={Link} to="/settings">Configurações</Dropdown.Item> */}
                   <Dropdown.Divider />
-                  <Dropdown.Item onClick={onLogout}>Sair</Dropdown.Item>
+                  <Dropdown.Item onClick={handleLogout}>Sair</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             ) : (
@@ -105,7 +120,7 @@ function Header ({ navLinks, user, onLogout }) {
                   <Dropdown.Item as={Link} to="/profile">Perfil</Dropdown.Item>
                   {/* <Dropdown.Item as={Link} to="/settings">Configurações</Dropdown.Item> */}
                   <Dropdown.Divider />
-                  <Dropdown.Item onClick={onLogout}>Sair</Dropdown.Item>
+                  <Dropdown.Item onClick={handleLogout}>Sair</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             ) : (
@@ -121,11 +136,6 @@ function Header ({ navLinks, user, onLogout }) {
 };
 
 Header.propTypes = {
-  onLogout: PropTypes.func.isRequired, 
-  navLinks: PropTypes.arrayOf(PropTypes.shape({ 
-    label: PropTypes.string.isRequired,
-    href: PropTypes.string.isRequired,
-  })).isRequired,
   user: PropTypes.shape({
     name: PropTypes.string.isRequired,
   }),

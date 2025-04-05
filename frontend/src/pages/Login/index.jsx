@@ -1,4 +1,4 @@
-import Header from "../../components/HeaderAfterLogin";
+import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import LoginData from "./components/LoginData";
 import "./styles.css";

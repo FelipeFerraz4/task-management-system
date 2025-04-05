@@ -1,7 +1,7 @@
 import { Container, Button, Image } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import Logo from "../../assets/LogoFoxBlue.png";
-import Header from "../../components/HeaderAfterLogin";
+import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import './styles.css';
 

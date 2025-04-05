@@ -16,8 +16,8 @@ function LoginData() {
     setError('');
 
     try {
-      const data = await login(email, password);
-      console.log('Login bem-sucedido:', data);
+      await login(email, password);
+      // console.log('Login bem-sucedido:', data);
       
       // Redireciona após login bem-sucedido
       navigate('/home');
