@@ -5,20 +5,10 @@ import About from "./components/About";
 import Features from "./components/Features";
 import "./styles.css";
 
-const navLinks = [
-  { label: "Início", href: "#start" },
-  { label: "Sobre", href: "#about" },
-  { label: "Funcionalidades", href: "#features" },
-];
-
-const handleLogout = () => {
-  console.log("Usuário deslogado");
-};
-
 function Home() {
   return (
     <>
-      <Header className="fixed-top" navLinks={navLinks} onLogout={handleLogout} />
+      <Header className="fixed-top" />
 
       <div className="content">
         <CarouselSection />
