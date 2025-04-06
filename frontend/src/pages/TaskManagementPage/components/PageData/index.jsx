@@ -4,7 +4,7 @@ import TaskTable from "../TaskTable";
 import DeleteModal from "../DeleteModal";
 import FilterModal from "../FilterModal";
 import AddTaskModal from "../AddTaskModal";
-import { getTasks } from "../../../../services/taskService";
+import taskService from "../../../../services/taskService";
 import "./styles.css";
 
 function PageData() {
@@ -57,7 +57,7 @@ function PageData() {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const data = await getTasks();
+        const data = await taskService.getTasks();
         setTasks(data);
         console.log(data);
       } catch (error) {
