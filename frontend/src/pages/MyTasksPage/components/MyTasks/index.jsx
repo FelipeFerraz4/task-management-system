@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./styles.css";
+import taskService from "../../../../services/taskService";
 
 const statusOptions = [
   { label: "Pendente", value: "pending" },
@@ -8,21 +9,58 @@ const statusOptions = [
   { label: "Cancelado", value: "cancelled" },
 ];
 
-const initialTasks = [
-  { id: 1, title: "Revisar código", status: "completed", description: "Revisão do código para refatoração." },
-  { id: 2, title: "Criar testes unitários", status: "pending", description: "Criar testes para garantir cobertura do código." },
-  { id: 3, title: "Atualizar documentação", status: "in-progress", description: "Documentação do novo módulo." },
-  { id: 4, title: "Atualizar documentação da WorkHub", status: "in-progress", description: "Documentação do novo módulo." },
-];
-
-// Função auxiliar para pegar o label correspondente
 const getStatusLabel = (value) => {
   const found = statusOptions.find((option) => option.value === value);
   return found ? found.label : value;
 };
 
 function MyTasks() {
-  const [tasks, setTasks] = useState(initialTasks);
+  const [tasks, setTasks] = useState([]);
+
+  useEffect(() => {
+    const fetchMyTasks = async () => {
+      try {
+        const res = await taskService.getMyTasks();
+        setTasks(res.data.tasks);
+      } catch (err) {
+        console.error("Erro ao buscar tarefas:", err);
+      }
+    };
+    fetchMyTasks();
+  }, []);
+
+  const handleSave = async () => {
+    const originalTask = tasks.find(task => task._id === selectedTask._id);
+    const updatedFields = {};
+
+    if (selectedTask.title !== originalTask.title) updatedFields.title = selectedTask.title;
+    if (selectedTask.status !== originalTask.status) updatedFields.status = selectedTask.status;
+    if (selectedTask.description !== originalTask.description) updatedFields.description = selectedTask.description;
+
+    if (Object.keys(updatedFields).length === 0) {
+      setIsEditing(false);
+      setSelectedTask(null);
+      return; // Nada mudou
+    }
+
+    try {
+      await taskService.updateTask(selectedTask._id, updatedFields);
+
+      setTasks((prevTasks) =>
+        prevTasks.map((task) =>
+          task._id === selectedTask._id ? selectedTask : task
+        )
+      );
+
+      setIsEditing(false);
+      setSelectedTask(null);
+    } catch (error) {
+      console.error("Erro ao salvar a tarefa:", error);
+      alert("Erro ao salvar a tarefa. Tente novamente.");
+    }
+  };
+
+
   const [filterTitle, setFilterTitle] = useState("");
   const [filterStatus, setFilterStatus] = useState("");
   const [selectedTask, setSelectedTask] = useState(null);
@@ -33,16 +71,6 @@ function MyTasks() {
       ...prev,
       [field]: value,
     }));
-  };
-
-  const handleSave = () => {
-    setTasks((prevTasks) =>
-      prevTasks.map((task) =>
-        task.id === selectedTask.id ? selectedTask : task
-      )
-    );
-    setIsEditing(false);
-    setSelectedTask(null);
   };
 
   const filteredTasks = tasks.filter(
@@ -72,7 +100,7 @@ function MyTasks() {
 
       <ul className="task-list">
         {filteredTasks.map((task) => (
-          <li key={task.id} onClick={() => { setSelectedTask(task); setIsEditing(false); }}>
+          <li key={task._id} onClick={() => { setSelectedTask(task); setIsEditing(false); }}>
             {task.title} - <span className={`status ${task.status.replace(" ", "-").toLowerCase()}`}>{getStatusLabel(task.status)}</span>
           </li>
         ))}
