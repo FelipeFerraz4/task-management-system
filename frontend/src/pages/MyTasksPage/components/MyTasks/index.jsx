@@ -1,14 +1,25 @@
 import { useState } from "react";
 import "./styles.css";
 
-const statusOptions = ["Concluído", "Pendente", "Em andamento"];
+const statusOptions = [
+  { label: "Pendente", value: "pending" },
+  { label: "Em andamento", value: "in-progress" },
+  { label: "Concluído", value: "completed" },
+  { label: "Cancelado", value: "cancelled" },
+];
 
 const initialTasks = [
-  { id: 1, title: "Revisar código", status: "Concluído", description: "Revisão do código para refatoração." },
-  { id: 2, title: "Criar testes unitários", status: "Pendente", description: "Criar testes para garantir cobertura do código." },
-  { id: 3, title: "Atualizar documentação", status: "Em andamento", description: "Documentação do novo módulo." },
-  { id: 4, title: "Atualizar documentação da WorkHub", status: "Em andamento", description: "Documentação do novo módulo." },
+  { id: 1, title: "Revisar código", status: "completed", description: "Revisão do código para refatoração." },
+  { id: 2, title: "Criar testes unitários", status: "pending", description: "Criar testes para garantir cobertura do código." },
+  { id: 3, title: "Atualizar documentação", status: "in-progress", description: "Documentação do novo módulo." },
+  { id: 4, title: "Atualizar documentação da WorkHub", status: "in-progress", description: "Documentação do novo módulo." },
 ];
+
+// Função auxiliar para pegar o label correspondente
+const getStatusLabel = (value) => {
+  const found = statusOptions.find((option) => option.value === value);
+  return found ? found.label : value;
+};
 
 function MyTasks() {
   const [tasks, setTasks] = useState(initialTasks);
@@ -34,9 +45,10 @@ function MyTasks() {
     setSelectedTask(null);
   };
 
-  const filteredTasks = tasks.filter((task) =>
-    task.title.toLowerCase().includes(filterTitle.toLowerCase()) &&
-    (filterStatus ? task.status === filterStatus : true)
+  const filteredTasks = tasks.filter(
+    (task) =>
+      task.title.toLowerCase().includes(filterTitle.toLowerCase()) &&
+      (filterStatus ? task.status === filterStatus : true)
   );
 
   return (
@@ -53,7 +65,7 @@ function MyTasks() {
         <select value={filterStatus} onChange={(e) => setFilterStatus(e.target.value)}>
           <option value="">Todos</option>
           {statusOptions.map((status) => (
-            <option key={status} value={status}>{status}</option>
+            <option key={status.value} value={status.value}>{status.label}</option>
           ))}
         </select>
       </div>
@@ -61,7 +73,7 @@ function MyTasks() {
       <ul className="task-list">
         {filteredTasks.map((task) => (
           <li key={task.id} onClick={() => { setSelectedTask(task); setIsEditing(false); }}>
-            {task.title} - <span className={`status ${task.status.replace(" ", "-").toLowerCase()}`}>{task.status}</span>
+            {task.title} - <span className={`status ${task.status.replace(" ", "-").toLowerCase()}`}>{getStatusLabel(task.status)}</span>
           </li>
         ))}
       </ul>
@@ -86,12 +98,15 @@ function MyTasks() {
                   onChange={(e) => handleTaskChange("status", e.target.value)}
                 >
                   {statusOptions.map((status) => (
-                    <option key={status} value={status}>{status}</option>
+                    <option key={status.value} value={status.value}>
+                      {status.label}
+                    </option>
                   ))}
                 </select>
 
                 <label>Descrição:</label>
                 <textarea
+                  style={{ resize: "none", maxHeight: "200px" }}
                   value={selectedTask.description}
                   onChange={(e) => handleTaskChange("description", e.target.value)}
                 />
@@ -104,7 +119,7 @@ function MyTasks() {
             ) : (
               <>
                 <p><strong>Título:</strong> {selectedTask.title}</p>
-                <p><strong>Status:</strong> {selectedTask.status}</p>
+                <p><strong>Status:</strong> {getStatusLabel(selectedTask.status)}</p>
                 <p><strong>Descrição:</strong> {selectedTask.description}</p>
 
                 <div className="modal-buttons">
