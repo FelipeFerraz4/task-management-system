@@ -13,8 +13,6 @@ function EmployeeTable({ employees, selectedEmployees, handleCheckboxChange, han
       <Table striped bordered hover className="table d-none d-md-table">
         <thead>
           <tr>
-
-            {/* Checkbox for selecting all employees */}
             <th>
               <Form.Check
                 type="checkbox"
@@ -22,7 +20,7 @@ function EmployeeTable({ employees, selectedEmployees, handleCheckboxChange, han
                 onChange={handleSelectAll}
               />
             </th>
-            <th>ID</th>
+            <th>#</th>
             <th>Nome</th>
             <th>Email</th>
             <th>Função</th>
@@ -30,25 +28,19 @@ function EmployeeTable({ employees, selectedEmployees, handleCheckboxChange, han
           </tr>
         </thead>
         <tbody>
-
-          {/* Mapping through employees to render each row */}
-          {employees.map((employee) => (
-            <tr key={employee.id}>
+          {employees.map((employee, index) => (
+            <tr key={employee._id}>
               <td>
-
-                {/* Checkbox to select individual employees */}
                 <Form.Check
                   type="checkbox"
-                  checked={selectedEmployees.includes(employee.id)}
-                  onChange={() => handleCheckboxChange(employee.id)}
+                  checked={selectedEmployees.includes(employee._id)}
+                  onChange={() => handleCheckboxChange(employee._id)}
                 />
               </td>
-              <td>{employee.id}</td>
+              <td>{index + 1}</td>
               <td>{employee.name}</td>
               <td>{employee.email}</td>
               <td>{employee.role}</td>
-
-              {/* Edit and Delete action buttons */}
               <td>
                 <button className="icon-btn" onClick={() => openModal(employee)}>
                   <img src={editIcon} alt="Editar" className="icon" />
@@ -64,8 +56,6 @@ function EmployeeTable({ employees, selectedEmployees, handleCheckboxChange, han
 
       {/* Mobile Version (Displays as Cards) */}
       <div className="mobile-table d-md-none">
-
-        {/* Select All Checkbox for mobile */}
         <div className="mobile-select-all">
           <Form.Check
             type="checkbox"
@@ -74,22 +64,19 @@ function EmployeeTable({ employees, selectedEmployees, handleCheckboxChange, han
             label="Selecionar Todos"
           />
         </div>
-
-        {/* Rendering employees as individual cards for mobile */}
-        {employees.map((employee) => (
-          <div key={employee.id} className="mobile-card">
+        {employees.map((employee, index) => (
+          <div key={employee._id} className="mobile-card">
             <div className="mobile-checkbox">
               <Form.Check
                 type="checkbox"
-                checked={selectedEmployees.includes(employee.id)}
-                onChange={() => handleCheckboxChange(employee.id)}
+                checked={selectedEmployees.includes(employee._id)}
+                onChange={() => handleCheckboxChange(employee._id)}
               />
             </div>
+            <p><strong>#</strong> {index + 1}</p>
             <p><strong>Nome:</strong> {employee.name}</p>
             <p><strong>Email:</strong> {employee.email}</p>
             <p><strong>Função:</strong> {employee.role}</p>
-
-            {/* Edit and Delete action buttons */}
             <div className="mobile-actions">
               <button className="icon-btn" onClick={() => openModal(employee)}>
                 <img src={editIcon} alt="Editar" className="icon" />
@@ -108,13 +95,13 @@ function EmployeeTable({ employees, selectedEmployees, handleCheckboxChange, han
 EmployeeTable.propTypes = {
   employees: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string.isRequired,
+      _id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
       email: PropTypes.string.isRequired,
       role: PropTypes.string.isRequired,
     })
   ).isRequired,
-  selectedEmployees: PropTypes.arrayOf(PropTypes.number).isRequired,
+  selectedEmployees: PropTypes.arrayOf(PropTypes.string).isRequired,
   handleCheckboxChange: PropTypes.func.isRequired,
   handleSelectAll: PropTypes.func.isRequired,
   openModal: PropTypes.func.isRequired,

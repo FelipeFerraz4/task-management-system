@@ -14,7 +14,7 @@ function AddEmployeeModal({ show, handleClose, handleAddEmployee, employee = nul
 
   // useEffect to load the task data into the form if we are editing an existing task 
   useEffect(() => {
-    if (employee && employee.id) {
+    if (employee && employee._id) {
       setFormData(employee);
     }
   }, [employee]);
@@ -39,7 +39,7 @@ function AddEmployeeModal({ show, handleClose, handleAddEmployee, employee = nul
     // Modal component from React Bootstrap to display the form
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>{formData.id ? "Editar Funcionário" : "Adicionar Funcionário"}</Modal.Title>
+        <Modal.Title>{formData._id ? "Editar Funcionário" : "Adicionar Funcionário"}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
 
@@ -85,7 +85,7 @@ function AddEmployeeModal({ show, handleClose, handleAddEmployee, employee = nul
 
         {/* Submit button with dynamic label */}
         <Button variant="primary" onClick={handleSubmit}>
-          {formData.id ? "Salvar Alterações" : "Adicionar"}
+          {formData._id ? "Salvar Alterações" : "Adicionar"}
         </Button>
       </Modal.Footer>
     </Modal>
@@ -97,7 +97,7 @@ AddEmployeeModal.propTypes = {
   handleClose: PropTypes.func.isRequired,
   handleAddEmployee: PropTypes.func.isRequired,
   employee: PropTypes.shape({
-    id: PropTypes.string,
+    _id: PropTypes.string,
     name: PropTypes.string,
     email: PropTypes.string,
     role: PropTypes.string,

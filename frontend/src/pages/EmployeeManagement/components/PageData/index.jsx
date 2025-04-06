@@ -4,16 +4,26 @@ import EmployeeTable from "../EmployeeTable";
 import DeleteModal from "../DeleteModal";
 import FilterModal from "../FilterModal";
 import AddEmployeeModal from "../AddEmployeeModal";
+import userService from "../../../../services/userService";
 import "./styles.css";
 
 function PageData() {
 
   // Initialize state variables
-  const [employees, setEmployees] = useState([
-    { id: "1", name: "Julia", email: "julia@gmail.com", role: "employee" },
-    { id: "2", name: "Carlos", email: "carlos@gmail.com", role: "manager" },
-    { id: "3", name: "Ana", email: "ana@gmail.com", role: "admin" },
-  ]);
+  const [employees, setEmployees] = useState([]);
+
+  useEffect(() => {
+    // Fetch employees from the user service when the component mounts 
+    const fetchEmployees = async () => {
+      try {
+        const response = await userService.getAllUsers();
+        setEmployees(response.data.users);
+      } catch (error) {
+        console.error("Error fetching employees:", error);
+      }
+    };
+    fetchEmployees();
+  }, []);
 
   // Modal and search-related states
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -21,7 +31,7 @@ function PageData() {
   const [searchResults, setSearchResults] = useState([]);
   const [showFilterModal, setShowFilterModal] = useState(false);
   const [showAddEmployeeModal, setShowAddEmployeeModal] = useState(false);
-  const [formData, setFormData] = useState({ id: "", name: "", email: "", role: "employee" });
+  const [formData, setFormData] = useState({ _id: "", name: "", email: "", role: "employee" });
   const [deleteConfirmText, setDeleteConfirmText] = useState("");
   const [selectedEmployees, setSelectedEmployees] = useState([]);
   const [filter, setFilter] = useState({ name: "", email: "", role: "" });
@@ -46,7 +56,7 @@ function PageData() {
 
   // Handle employee deletion by filtering out the deleted employee
   const handleDelete = () => {
-    setEmployees((prev) => prev.filter((emp) => emp.id !== formData.id));
+    setEmployees((prev) => prev.filter((emp) => emp._id !== formData._id));
     closeDeleteModal();
   };
 
@@ -57,7 +67,7 @@ function PageData() {
 
   // Select/deselect all employees
   const handleSelectAll = () => {
-    setSelectedEmployees(selectedEmployees.length === employees.length ? [] : employees.map((e) => e.id));
+    setSelectedEmployees(selectedEmployees.length === employees.length ? [] : employees.map((e) => e._id));
   };
 
   // Apply filters based on the form data
@@ -77,10 +87,10 @@ function PageData() {
 
   // Handle adding a new employee or editing an existing one
   const handleAddEmployee = (newEmployee) => {
-    if (newEmployee.id) {
-      setEmployees(employees.map((emp) => (emp.id === newEmployee.id ? newEmployee : emp)));
+    if (newEmployee._id) {
+      setEmployees(employees.map((emp) => (emp._id === newEmployee._id ? newEmployee : emp)));
     } else {
-      setEmployees((prev) => [...prev, { ...newEmployee, id: Date.now().toString() }]);
+      setEmployees((prev) => [...prev, { ...newEmployee, _id: Date.now().toString() }]);
     }
   };
 
