@@ -8,7 +8,7 @@ function getFeatures(role) {
   const features = new Set();
 
   if (role === "rh") {
-    features.add(Employees).add(tasks).add(MeTasks);
+    features.add(Employees).add(MeTasks);
   } else if (role === "manager") {
     features.add(tasks).add(MeTasks).add(dashboard);
   } else if (role === "admin") {
