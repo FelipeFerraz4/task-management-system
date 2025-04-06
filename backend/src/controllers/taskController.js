@@ -77,3 +77,19 @@ exports.deleteTask = catchAsync(async (req, res, next) => {
     data: null,
   });
 });
+
+exports.getMyTasks = catchAsync(async (req, res, next) => {
+  const tasks = await Task.find({ responsibles: req.user._id });
+
+  if (!tasks) {
+    return next(new AppError('No tasks found for this user', 404));
+  }
+
+  res.status(200).json({
+    status: 'sucess',
+    results: tasks.lenght,
+    data: {
+      tasks,
+    },
+  });
+});
