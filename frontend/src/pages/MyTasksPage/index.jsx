@@ -2,11 +2,11 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import { useNavigate } from "react-router-dom";
 import "./styles.css";
-import History from "./components/History";
+import MyTasks from "./components/MyTasks";
 import { useEffect, useState } from "react";
 import userService from "../../services/userService";
 
-function EmployeeManagement() {
+function MeTasksPage() {
   const navigate = useNavigate();
 
     const [user, setUser] = useState(null);
@@ -31,7 +31,7 @@ function EmployeeManagement() {
     <div className="base_page">
       <Header user={{ name: user.name }} />
         <div className="page-content d-flex">
-          <History />
+          <MyTasks />
         </div>
         <Footer />
     </div>
@@ -39,4 +39,4 @@ function EmployeeManagement() {
 
 }
 
-export default EmployeeManagement;
+export default MeTasksPage;

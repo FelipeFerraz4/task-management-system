@@ -31,7 +31,7 @@ function HomeAfterLogin() {
     <div className="base_page">
       <Header user={{ name: user.name }} />
       <div className="page-content d-flex">
-        <PageData />
+        <PageData user={user} />
       </div>
       <Footer />
     </div>

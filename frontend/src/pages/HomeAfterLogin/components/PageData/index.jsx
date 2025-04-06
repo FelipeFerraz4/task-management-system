@@ -2,16 +2,12 @@ import { Card, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom"; 
 import "./styles.css";
 import Image from "../../../../assets/office_room.png";
+import getFeatures from "../../../../utils/features";
+import PropTypes from "prop-types";
 
 // Define an array of features, each containing a title, subtitle, and link to the respective page
-const features = [
-    { "title": "Equipe & Colaboradores", "subtitle": "Controle funcionários e permissões", "link": "/employee/management" },
-    { "title": "Tarefas e Designações", "subtitle": "Gerencie e atribua tarefas para funcionários.", "link": "/task/management" },
-    { "title": "Acompanhamento de Tarefas", "subtitle": "Consulte o histórico de tarefas", "link": "/task/history" },
-    { "title": "Análise e Relatórios", "subtitle": "Gere relatórios e Obtenha insights valiosos", "link": "/dashboard" },
-];
-
-function PageData() {
+function PageData({ user }) {
+  const features = getFeatures(user.role);
   return (
     <div className="container mt-4">
       {/* Centered title */}
@@ -39,5 +35,11 @@ function PageData() {
     </div>
   );
 }
+
+PageData.propTypes = {
+  user: PropTypes.shape({
+    role: PropTypes.string.isRequired,
+  }),
+};
 
 export default PageData;

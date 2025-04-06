@@ -18,7 +18,7 @@ function AppRoutes() {
       <Route path="/profile" element={<ProfilePage />}/>
       <Route path="/dashboard" element={<DashboardPage />}/>
       <Route path="/task/management" element={<TaskManagementPage />}/>
-      <Route path="/task/history" element={<HistoryPage />}/>
+      <Route path="/task/metasks" element={<HistoryPage />}/>
       <Route path="/employee/management" element={<EmployeeManagement />}/>
       <Route path="*" element={<PageNotFound />} />
     </Routes>
