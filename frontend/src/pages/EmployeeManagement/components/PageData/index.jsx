@@ -86,13 +86,13 @@ function PageData() {
   });
 
   // Handle adding a new employee or editing an existing one
-  const handleAddEmployee = (newEmployee) => {
-    if (newEmployee._id) {
-      setEmployees(employees.map((emp) => (emp._id === newEmployee._id ? newEmployee : emp)));
-    } else {
-      setEmployees((prev) => [...prev, { ...newEmployee, _id: Date.now().toString() }]);
-    }
-  };
+  // const handleAddEmployee = (newEmployee) => {
+  //   if (newEmployee._id) {
+  //     setEmployees(employees.map((emp) => (emp._id === newEmployee._id ? newEmployee : emp)));
+  //   } else {
+  //     setEmployees((prev) => [...prev, { ...newEmployee, _id: Date.now().toString() }]);
+  //   }
+  // };
 
   // Handle search functionality based on search term
   const handleSearch = () => {
@@ -179,8 +179,7 @@ function PageData() {
       <AddEmployeeModal
         show={showAddEmployeeModal}
         handleClose={() => setShowAddEmployeeModal(false)}
-        handleAddEmployee={handleAddEmployee}
-        employee={formData}
+        setEmployees={setEmployees}
       />
     </div>
   );

@@ -1,19 +1,26 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import PropTypes from "prop-types";
-import "./styles.css"; // CSS separado
+import userService from "../../../../services/userService"; // adapte o caminho conforme necessário
+import "./styles.css";
 
-function AddEmployeeModal({ show, handleClose, handleAddEmployee, employee = null }) {
+const statusOptions = [
+  { label: "Funcionário", value: "employee" },
+  { label: "Cliente", value: "client" },
+  { label: "Gerente", value: "manager" },
+  { label: "RH", value: "rh" },
+  { label: "Suporte", value: "support" },
+  { label: "Administrador", value: "admin" },
+];
+
+function AddEmployeeModal({ show, handleClose, setEmployees }) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     role: "employee",
+    photo: "",
+    password: "",
+    passwordConfirm: "",
   });
-
-  useEffect(() => {
-    if (employee && employee._id) {
-      setFormData(employee);
-    }
-  }, [employee]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,9 +30,16 @@ function AddEmployeeModal({ show, handleClose, handleAddEmployee, employee = nul
     }));
   };
 
-  const handleSubmit = () => {
-    handleAddEmployee(formData);
-    handleClose();
+  const handleSubmit = async () => {
+    try {
+      const response = await userService.createUser(formData);
+      // console.log("Usuário cadastrado com sucesso:", response);
+      setEmployees((prev) => [...prev, response.data.user]); // Adiciona o novo usuário à lista de funcionários
+      handleClose();
+    } catch (error) {
+      console.error("Erro ao cadastrar usuário:", error.response?.data || error.message);
+      alert("Erro ao cadastrar usuário. Verifique os dados e tente novamente.");
+    }
   };
 
   if (!show) return null;
@@ -40,7 +54,7 @@ function AddEmployeeModal({ show, handleClose, handleAddEmployee, employee = nul
     <div className="modal-backdrop" onClick={handleBackdropClick}>
       <div className="modal-content-custom">
         <div className="modal-header">
-          <h2>{formData._id ? "Editar Funcionário" : "Adicionar Funcionário"}</h2>
+          <h2>Cadastro de Usuário</h2>
           <button className="close-btn" onClick={handleClose}>×</button>
         </div>
         <div className="modal-body">
@@ -58,17 +72,38 @@ function AddEmployeeModal({ show, handleClose, handleAddEmployee, employee = nul
             value={formData.email}
             onChange={handleChange}
           />
+          <input
+            type="text"
+            placeholder="Link da Foto (opcional)"
+            name="photo"
+            value={formData.photo}
+            onChange={handleChange}
+          />
           <select name="role" value={formData.role} onChange={handleChange}>
-            <option value="employee">Funcionário</option>
-            <option value="manager">Gerente</option>
-            <option value="admin">Administrador</option>
+            {statusOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
           </select>
+          <input
+            type="password"
+            placeholder="Senha"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+          />
+          <input
+            type="password"
+            placeholder="Confirmar Senha"
+            name="passwordConfirm"
+            value={formData.passwordConfirm}
+            onChange={handleChange}
+          />
         </div>
         <div className="modal-footer">
           <button className="btn secondary" onClick={handleClose}>Fechar</button>
-          <button className="btn primary" onClick={handleSubmit}>
-            {formData._id ? "Salvar Alterações" : "Adicionar"}
-          </button>
+          <button className="btn primary" onClick={handleSubmit}>Cadastrar</button>
         </div>
       </div>
     </div>
@@ -78,13 +113,7 @@ function AddEmployeeModal({ show, handleClose, handleAddEmployee, employee = nul
 AddEmployeeModal.propTypes = {
   show: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
-  handleAddEmployee: PropTypes.func.isRequired,
-  employee: PropTypes.shape({
-    _id: PropTypes.string,
-    name: PropTypes.string,
-    email: PropTypes.string,
-    role: PropTypes.string,
-  }),
+  setEmployees: PropTypes.func.isRequired,
 };
 
 export default AddEmployeeModal;
