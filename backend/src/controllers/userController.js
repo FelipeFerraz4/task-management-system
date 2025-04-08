@@ -103,12 +103,29 @@ exports.createUser = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.updateUser = (req, res) => {
-  res.status(500).json({
-    status: 'error',
-    message: 'This route is not yet defined!',
+exports.updateUser = catchAsync(async (req, res, next) => {
+  const filteredBody = filterObj(req.body, 'name', 'email', 'role', 'photo');
+
+  const updatedUser = await User.findByIdAndUpdate(
+    req.params.id,
+    filteredBody,
+    {
+      new: true,
+      runValidators: true,
+    },
+  );
+
+  if (!updatedUser) {
+    return next(new AppError('No user found with that ID', 404));
+  }
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      user: updatedUser,
+    },
   });
-};
+});
 
 exports.deleteUser = catchAsync(async (req, res, next) => {
   const user = await User.findByIdAndUpdate(req.params.id, { active: false });
