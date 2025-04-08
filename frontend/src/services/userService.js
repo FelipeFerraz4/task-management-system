@@ -23,4 +23,11 @@ const getAllUsers = async () => {
   return response.data;
 };
 
-export default {getMe, updateMe, getAllUsers};
+const createUser = async (params) => {
+  const response = await axios.post(`${API_URL}`, params, {
+    withCredentials: true,
+  });
+  return response.data;
+};
+
+export default { getMe, updateMe, getAllUsers, createUser };
