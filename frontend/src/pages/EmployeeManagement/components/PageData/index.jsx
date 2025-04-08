@@ -32,7 +32,6 @@ function PageData() {
   const [showFilterModal, setShowFilterModal] = useState(false);
   const [showAddEmployeeModal, setShowAddEmployeeModal] = useState(false);
   const [formData, setFormData] = useState({ _id: "", name: "", email: "", role: "employee" });
-  const [deleteConfirmText, setDeleteConfirmText] = useState("");
   const [selectedEmployees, setSelectedEmployees] = useState([]);
   const [filter, setFilter] = useState({ name: "", email: "", role: "" });
 
@@ -48,17 +47,17 @@ function PageData() {
     setShowAddEmployeeModal(true);
   }
 
-  // Close delete modal and reset confirmation text
-  const closeDeleteModal = () => {
-    setShowDeleteModal(false);
-    setDeleteConfirmText("");
-  };
+  // // Close delete modal and reset confirmation text
+  // const closeDeleteModal = () => {
+  //   setShowDeleteModal(false);
+  //   setDeleteConfirmText("");
+  // };
 
-  // Handle employee deletion by filtering out the deleted employee
-  const handleDelete = () => {
-    setEmployees((prev) => prev.filter((emp) => emp._id !== formData._id));
-    closeDeleteModal();
-  };
+  // // Handle employee deletion by filtering out the deleted employee
+  // const handleDelete = () => {
+  //   setEmployees((prev) => prev.filter((emp) => emp._id !== formData._id));
+  //   closeDeleteModal();
+  // };
 
   // Handle checkbox change for selecting employees
   const handleCheckboxChange = (id) => {
@@ -159,11 +158,10 @@ function PageData() {
       {/* Delete Modal Component */}
       <DeleteModal
         show={showDeleteModal}
-        closeDeleteModal={closeDeleteModal}
-        handleDelete={handleDelete}
+        setShowDeleteModal={setShowDeleteModal}
         formData={formData}
-        deleteConfirmText={deleteConfirmText}
-        setDeleteConfirmText={setDeleteConfirmText}
+        employees={employees}
+        setEmployees={setEmployees}
       />
 
       {/* Filter Modal Component */}

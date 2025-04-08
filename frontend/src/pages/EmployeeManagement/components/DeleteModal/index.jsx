@@ -1,23 +1,36 @@
 import { Modal, Button, Form } from "react-bootstrap";
 import PropTypes from "prop-types";
 import "./styles.css";
+import userService from "../../../../services/userService";
+import { useState } from "react";
 
-// DeleteModal component for confirming deletion of an item
-function DeleteModal({ show, closeDeleteModal, handleDelete, formData, deleteConfirmText, setDeleteConfirmText }) {
+function DeleteUserModal({ show, setShowDeleteModal, formData, employees, setEmployees }) {
+  const [deleteConfirmText, setDeleteConfirmText] = useState("");
+
+  const closeDeleteModal = () => {
+    setShowDeleteModal(false);
+    setDeleteConfirmText("");
+  };
+
+  const handleDelete = async () => {
+    try {
+      await userService.deleteUser(formData._id);
+      setEmployees(employees.filter((user) => user._id !== formData._id));
+      closeDeleteModal();
+    } catch (error) {
+      console.error("Erro ao excluir usuário:", error.response?.data || error.message);
+      alert("Erro ao excluir o usuário. Tente novamente.");
+    }
+  };
+
   return (
-
-    // Modal component from React-Bootstrap to display the delete confirmation dialog
     <Modal show={show} onHide={closeDeleteModal}>
       <Modal.Header closeButton>
         <Modal.Title>Confirmar Exclusão</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-
-        {/* The message displaying the task name and asking for confirmation */}
-        <p>Tem certeza que deseja excluir {formData.name}?</p>
-        <p>Digite <strong>{'"DELETAR"'}</strong> para confirmar:</p>
-
-        {/* Text input field to type 'DELETAR' for confirmation */}
+        <p>Tem certeza que deseja excluir o usuário <strong>{formData.name}</strong>?</p>
+        <p>Digite <strong>DELETAR</strong> para confirmar:</p>
         <Form.Control
           type="text"
           value={deleteConfirmText}
@@ -25,28 +38,24 @@ function DeleteModal({ show, closeDeleteModal, handleDelete, formData, deleteCon
         />
       </Modal.Body>
       <Modal.Footer>
-
-        {/* Cancel button that closes the modal */}
         <Button variant="secondary" onClick={closeDeleteModal}>Cancelar</Button>
-
-        {/* Delete confirmation button, disabled unless the correct text 'DELETAR' is typed */}
         <Button variant="danger" onClick={handleDelete} disabled={deleteConfirmText !== "DELETAR"}>
           Confirmar Exclusão
         </Button>
       </Modal.Footer>
     </Modal>
   );
-};
+}
 
-DeleteModal.propTypes = {
+DeleteUserModal.propTypes = {
   show: PropTypes.bool.isRequired,
-  closeDeleteModal: PropTypes.func.isRequired,
-  handleDelete: PropTypes.func.isRequired,
+  setShowDeleteModal: PropTypes.func.isRequired,
   formData: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
   }).isRequired,
-  deleteConfirmText: PropTypes.string.isRequired,
-  setDeleteConfirmText: PropTypes.func.isRequired,
+  employees: PropTypes.array.isRequired,
+  setEmployees: PropTypes.func.isRequired,
 };
 
-export default DeleteModal;
+export default DeleteUserModal;
