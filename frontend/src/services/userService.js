@@ -37,4 +37,20 @@ const deleteUser = async (userId) => {
   return response.data;
 };
 
-export default { getMe, updateMe, getAllUsers, createUser, deleteUser };
+const updateUser = async (userId, params) => {
+  const response = await axios.patch(`${API_URL}/${userId}`, params, {
+    withCredentials: true,
+  });
+  return response.data;
+};
+
+const userService = {
+  getMe,
+  updateMe,
+  getAllUsers,
+  createUser,
+  deleteUser,
+  updateUser,
+};
+
+export default userService;
