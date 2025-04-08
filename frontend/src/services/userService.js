@@ -30,4 +30,11 @@ const createUser = async (params) => {
   return response.data;
 };
 
-export default { getMe, updateMe, getAllUsers, createUser };
+const deleteUser = async (userId) => {
+  const response = await axios.delete(`${API_URL}/${userId}`, {
+    withCredentials: true,
+  });
+  return response.data;
+};
+
+export default { getMe, updateMe, getAllUsers, createUser, deleteUser };
