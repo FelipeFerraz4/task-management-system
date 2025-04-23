@@ -2,6 +2,7 @@ const catchAsync = require('../utils/catchAsync');
 const APIFeatures = require('../utils/apiFeatures');
 const AppError = require('../utils/appError');
 const Task = require('../models/taskModel');
+const User = require('../models/userModel');
 
 exports.getAllTasks = catchAsync(async (req, res, next) => {
   const features = new APIFeatures(Task.find(), req.query)
@@ -11,12 +12,26 @@ exports.getAllTasks = catchAsync(async (req, res, next) => {
     .paginate();
 
   const tasks = await features.query;
+  const users = await User.find();
+
+  const userMap = new Map(
+    users.map((user) => [user._id.toString(), user.name]),
+  );
+
+  const tasksWithNames = tasks.map((task) => {
+    const newTask = task.toObject();
+    newTask.responsibles = task.responsibles.map((responsibleId) => {
+      const name = userMap.get(responsibleId.toString()) || 'Desconhecido';
+      return { id: responsibleId, name };
+    });
+    return newTask;
+  });
 
   res.status(200).json({
-    status: 'sucess',
-    results: tasks.lenght,
+    status: 'success',
+    results: tasksWithNames.length,
     data: {
-      tasks,
+      tasks: tasksWithNames,
     },
   });
 });
@@ -28,10 +43,21 @@ exports.getTask = catchAsync(async (req, res, next) => {
     return next(new AppError('No task found with that ID', 404));
   }
 
+  const users = await User.find();
+  const userMap = new Map(
+    users.map((user) => [user._id.toString(), user.name]),
+  );
+
+  const taskObj = task.toObject();
+  taskObj.responsibles = task.responsibles.map((responsibleId) => {
+    const name = userMap.get(responsibleId.toString()) || 'Desconhecido';
+    return { id: responsibleId, name };
+  });
+
   res.status(200).json({
-    status: 'sucess',
+    status: 'success',
     data: {
-      task,
+      task: taskObj,
     },
   });
 });

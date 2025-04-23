@@ -2,27 +2,35 @@ import { useState, useEffect } from "react";
 import { Modal, Button, Form, InputGroup } from "react-bootstrap";
 import PropTypes from "prop-types";
 
-// AddEmployeeModal component to add or edit a task
+// Componente AddTaskModal para adicionar ou editar uma tarefa
 function AddTaskModal({ show, handleClose, handleAddTask, task = null }) {
-
-  // State to hold the form data for the task being added or edited
   const [formData, setFormData] = useState({
-    "id": "",
-    "title": "",
-    "description": "",
-    "status": "",
-    "due_date": "",
-    "responsible": ""
+    id: "",
+    title: "",
+    description: "",
+    status: "pending",
+    due_date: "",
+    responsible: ""
   });
 
-  // useEffect to load the task data into the form if we are editing an existing task 
+  // Carrega os dados da tarefa ao editar
   useEffect(() => {
     if (task && task.id) {
       setFormData(task);
+    } else {
+      // Reseta o formulário ao abrir para nova tarefa
+      setFormData({
+        id: "",
+        title: "",
+        description: "",
+        status: "pending",
+        due_date: "",
+        responsible: ""
+      });
     }
   }, [task]);
 
-  // Handle changes in form input fields and update state
+  // Atualiza os valores conforme o usuário digita
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -31,22 +39,18 @@ function AddTaskModal({ show, handleClose, handleAddTask, task = null }) {
     }));
   };
 
-  // Handle form submission by calling the handleAddTask function and closing the modal
+  // Submete o formulário
   const handleSubmit = () => {
     handleAddTask(formData);
     handleClose();
   };
 
   return (
-
-    // Modal component from React Bootstrap to display the form
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>{formData.id ? "Editar Tarefa" : "Adicionar Tarefa"}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-
-        {/* Form to capture task details */}
         <Form>
           <InputGroup className="mb-3">
             <Form.Control
@@ -57,6 +61,7 @@ function AddTaskModal({ show, handleClose, handleAddTask, task = null }) {
               onChange={handleChange}
             />
           </InputGroup>
+
           <InputGroup className="mb-3">
             <Form.Control
               type="text"
@@ -66,65 +71,64 @@ function AddTaskModal({ show, handleClose, handleAddTask, task = null }) {
               onChange={handleChange}
             />
           </InputGroup>
+
           <InputGroup className="mb-3">
             <Form.Select
-              name="Status"
-              value={formData.role}
+              name="status"
+              value={formData.status}
               onChange={handleChange}
             >
               <option value="pending">Pendente</option>
               <option value="in-progress">Em andamento</option>
-              <option value="completed">Concluído</option>
+              <option value="completed">Concluída</option>
             </Form.Select>
           </InputGroup>
+
           <InputGroup className="mb-3">
             <Form.Control
               type="date"
-              placeholder="Data de vencimento"
               name="due_date"
               value={formData.due_date}
               onChange={handleChange}
             />
           </InputGroup>
+
           <InputGroup className="mb-3">
             <Form.Control
               type="text"
-              placeholder="Descrição"
-              name="Responsável"
+              placeholder="Responsável"
+              name="responsible"
               value={formData.responsible}
               onChange={handleChange}
             />
           </InputGroup>
         </Form>
       </Modal.Body>
+
       <Modal.Footer>
-        
-        {/* Close button */}
         <Button variant="secondary" onClick={handleClose}>
           Fechar
         </Button>
-
-        {/* Submit button with dynamic label */}
         <Button variant="primary" onClick={handleSubmit}>
           {formData.id ? "Salvar Alterações" : "Adicionar"}
         </Button>
       </Modal.Footer>
     </Modal>
   );
-};
+}
 
 AddTaskModal.propTypes = {
   show: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
   handleAddTask: PropTypes.func.isRequired,
   task: PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired,
-      description: PropTypes.string.isRequired,
-      status: PropTypes.string.isRequired,
-      due_date: PropTypes.string.isRequired,
-      responsible: PropTypes.string.isRequired,
-    }),
+    id: PropTypes.string,
+    title: PropTypes.string,
+    description: PropTypes.string,
+    status: PropTypes.string,
+    due_date: PropTypes.string,
+    responsible: PropTypes.string,
+  }),
 };
 
 export default AddTaskModal;

@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import "./styles.css";
 
 // TaskTable Component - Displays a list of tasks in a table format (desktop) and a card format (mobile)
-function TaskTable ({ tasks, selectedTasks, handleCheckboxChange, handleSelectAll, openModal, openDeleteModal }) {
+function TaskTable({ tasks, selectedTasks, handleCheckboxChange, handleSelectAll, openModal, openDeleteModal }) {
   return (
     <div className="table-container">
 
@@ -13,8 +13,6 @@ function TaskTable ({ tasks, selectedTasks, handleCheckboxChange, handleSelectAl
       <Table striped bordered hover className="table d-none d-md-table">
         <thead>
           <tr>
-
-            {/* Checkbox for selecting all tasks */}
             <th className="text-center">
               <Form.Check
                 type="checkbox"
@@ -32,13 +30,9 @@ function TaskTable ({ tasks, selectedTasks, handleCheckboxChange, handleSelectAl
           </tr>
         </thead>
         <tbody>
-
-          {/* Mapping through tasks to render each row */}
           {tasks.map((task) => (
             <tr key={task.id}>
               <td className="text-center">
-
-                {/* Checkbox to select individual tasks */}
                 <Form.Check
                   type="checkbox"
                   checked={selectedTasks.includes(task.id)}
@@ -49,10 +43,15 @@ function TaskTable ({ tasks, selectedTasks, handleCheckboxChange, handleSelectAl
               <td className="text-center">{task.title}</td>
               <td className="text-center">{task.description}</td>
               <td className="text-center">{task.status}</td>
-              <td className="text-center">{task.due_date}</td>
-              <td className="text-center">{task.responsible}</td>
-
-              {/* Edit and Delete action buttons */}
+              <td className="text-center">{task.dueDate}</td>
+              <td className="text-center">
+                {task.responsibles.map((responsible, index) => (
+                  <span key={index}>
+                    {responsible.name}
+                    {index < task.responsibles.length - 1 && ", "}
+                  </span>
+                ))}
+              </td>
               <td className="text-center">
                 <button className="icon-btn" onClick={() => openModal(task)}>
                   <img src={editIcon} alt="Editar" className="icon" />
@@ -68,8 +67,6 @@ function TaskTable ({ tasks, selectedTasks, handleCheckboxChange, handleSelectAl
 
       {/* Mobile Version (Displays as Cards) */}
       <div className="mobile-table d-md-none">
-
-        {/* Select All Checkbox for mobile */}
         <div className="mobile-select-all">
           <Form.Check
             type="checkbox"
@@ -79,7 +76,6 @@ function TaskTable ({ tasks, selectedTasks, handleCheckboxChange, handleSelectAl
           />
         </div>
 
-        {/* Rendering tasks as individual cards for mobile */}
         {tasks.map((task) => (
           <div key={task.id} className="mobile-card">
             <div className="mobile-checkbox">
@@ -92,10 +88,15 @@ function TaskTable ({ tasks, selectedTasks, handleCheckboxChange, handleSelectAl
             <p><strong>Título:</strong> {task.title}</p>
             <p><strong>Descrição:</strong> {task.description}</p>
             <p><strong>Status:</strong> {task.status}</p>
-            <p><strong>Data de vencimento:</strong> {task.due_date}</p>
-            <p><strong>Responsável:</strong> {task.responsible}</p>
-            
-            {/* Edit and Delete action buttons */}
+            <p><strong>Data de vencimento:</strong> {task.dueDate}</p>
+            <p><strong>Responsável:</strong> {
+              task.responsibles.map((responsible, index) => (
+                <span key={index}>
+                  {responsible.name}
+                  {index < task.responsibles.length - 1 && ", "}
+                </span>
+              ))
+            }</p>
             <div className="mobile-actions">
               <button className="icon-btn" onClick={() => openModal(task)}>
                 <img src={editIcon} alt="Editar" className="icon" />
@@ -109,7 +110,7 @@ function TaskTable ({ tasks, selectedTasks, handleCheckboxChange, handleSelectAl
       </div>
     </div>
   );
-};
+}
 
 TaskTable.propTypes = {
   tasks: PropTypes.arrayOf(
@@ -118,11 +119,16 @@ TaskTable.propTypes = {
       title: PropTypes.string.isRequired,
       description: PropTypes.string.isRequired,
       status: PropTypes.string.isRequired,
-      due_date: PropTypes.string.isRequired,
-      responsible: PropTypes.string.isRequired,
+      dueDate: PropTypes.string.isRequired,
+      responsibles: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.string.isRequired,
+          name: PropTypes.string.isRequired,
+        })
+      ).isRequired,
     })
   ).isRequired,
-  selectedTasks: PropTypes.arrayOf(PropTypes.number).isRequired,
+  selectedTasks: PropTypes.arrayOf(PropTypes.string).isRequired,
   handleCheckboxChange: PropTypes.func.isRequired,
   handleSelectAll: PropTypes.func.isRequired,
   openModal: PropTypes.func.isRequired,
